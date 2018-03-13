@@ -1,7 +1,6 @@
 ﻿using coreTest11.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MPX.Models;
 
 namespace coreTest11.Data
 {

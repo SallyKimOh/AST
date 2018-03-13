@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using coreTest11.Models;
-using MPX.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace coreTest11
@@ -93,7 +92,7 @@ namespace coreTest11
             }
 
             app.UseStaticFiles();
-            app.UseIdentity();
+//            app.UseIdentity();
 
             app.UseMvc(routes =>
             {

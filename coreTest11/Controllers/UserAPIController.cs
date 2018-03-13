@@ -73,7 +73,7 @@ namespace coreTest11.Controllers
         }
 
         [Route("CreateParent")]
-        public async Task<JsonResult> CreateParent(Parent item)
+        public JsonResult CreateParent(Parent item)
         {
 
             if (item.UserId == null)

@@ -717,6 +717,16 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/2.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting": "2.0.1",
+          "Microsoft.AspNetCore.Mvc.RazorPages": "2.0.2"
+        },
+        "build": {
+          "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation.targets": {}
+        }
+      },
       "Microsoft.AspNetCore.Mvc.RazorPages/2.0.2": {
         "type": "package",
         "dependencies": {
@@ -4496,6 +4506,20 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.xml",
         "microsoft.aspnetcore.mvc.razor.extensions.2.0.1.nupkg.sha512",
         "microsoft.aspnetcore.mvc.razor.extensions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/2.0.2": {
+      "sha512": "umyzHhXoyc8uWWYNPXghv0CaM/kw60SofYNClDJ/gnmgBVZvx6NO8AV89ANT6PA1N9l3I8qkSK3drzUWnQnRng==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.razor.viewcompilation/2.0.2",
+      "files": [
+        "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation-x64.exe",
+        "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation-x86.exe",
+        "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation.Tasks.dll",
+        "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation.dll",
+        "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation.targets",
+        "microsoft.aspnetcore.mvc.razor.viewcompilation.2.0.2.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.razor.viewcompilation.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Mvc.RazorPages/2.0.2": {
@@ -10825,6 +10849,7 @@
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 2.0.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 2.0.1",
       "Microsoft.AspNetCore.Mvc >= 2.0.2",
+      "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation >= 2.0.2",
       "Microsoft.AspNetCore.StaticFiles >= 2.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 2.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.1",
@@ -10848,11 +10873,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\Project\\coreTest11\\coreTest11\\coreTest11.csproj",
+      "projectUniqueName": "D:\\Project\\coreTest11\\AST\\coreTest11\\coreTest11.csproj",
       "projectName": "coreTest11",
-      "projectPath": "D:\\Project\\coreTest11\\coreTest11\\coreTest11.csproj",
+      "projectPath": "D:\\Project\\coreTest11\\AST\\coreTest11\\coreTest11.csproj",
       "packagesPath": "C:\\Users\\kim00335\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\coreTest11\\coreTest11\\obj\\",
+      "outputPath": "D:\\Project\\coreTest11\\AST\\coreTest11\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -10897,6 +10922,10 @@
           "Microsoft.Extensions.Logging.Debug": {
             "target": "Package",
             "version": "2.0.0"
+          },
+          "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation": {
+            "target": "Package",
+            "version": "2.0.2"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "target": "Package",
