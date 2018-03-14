@@ -57,6 +57,9 @@ namespace coreTest11.Module.API
         {
 			
             var user = new Users { UserName = model.Email, Email = model.Email, IsActive = false };
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
             var result = await _userManager.CreateAsync(user, model.PasswordHash);
 
             ReturnMessage item;

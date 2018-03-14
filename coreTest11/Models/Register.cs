@@ -9,7 +9,7 @@ namespace coreTest11.Models
     {
         public Users Users { get; set; }
         public Parent Parent { get; set; }
-        public int CredentialsID { get; set; }
+        public string Key { get; set; }
         public Student Student { get; set; }
 
     }

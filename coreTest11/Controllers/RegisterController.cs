@@ -10,6 +10,8 @@ using coreTest11.Module.API;
 using coreTest11.Data;
 using coreTest11.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace coreTest11.Controllers
 {
@@ -20,12 +22,15 @@ namespace coreTest11.Controllers
         private readonly SchoolDbContext _context;
         private readonly UserManager<Users> _userManager;
         private readonly SignInManager<Users> _signInManager;
+        private readonly ILogger _logger;
 
-        public RegisterController(SchoolDbContext context, UserManager<Users> userManager, SignInManager<Users> signInManager)
+
+        public RegisterController(SchoolDbContext context, UserManager<Users> userManager, SignInManager<Users> signInManager, ILoggerFactory loggerFactory)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = loggerFactory.CreateLogger<RegisterController>();
 
         }
 
@@ -56,7 +61,7 @@ namespace coreTest11.Controllers
          * ADD Parent info
          * ADD Student info
          * Add StudentParent info
-         * 
+         * http://localhost:61682/api/Register/RegisterByDeskTop?Users.FirstName=Sally&Users.LastName=Kim&Users.Email=Sally2@gmail.com&Users.PasswordHash=A1234567!a&Student.FirstName=Justin&Student.LastName=Oh&Student.Key=AAA1234567890&Parent.CellPhone=613-222-2222
          * **********************************************************/
 
         [Route("RegisterByDeskTop")]
@@ -67,22 +72,30 @@ namespace coreTest11.Controllers
             StudentModule studentMod = new StudentModule(_context);
             StudentParentModule stuParMod = new StudentParentModule(_context);
 
+            //            model.Parent.UserId = "AFDSF";
             var resultVal = module.CreateUserByDeskTop(model.Users);
-
             if (resultVal.Result.StatusCode == 200)     // success Users table
             {
-                model.Parent.UserId = module.GetUserInfo(model.Users).Id;     //select userID
-                int parentID = parentMod.CreateParent(model.Parent);                   //save parent info
-                int studentID = studentMod.CreateStudent(model.Student);                //save student info
+                if (module.GetUserInfo(model.Users) != null)
+                {
+                    if (model.Parent == null)
+                    {
+                        model.Parent = new Parent();
+                    } 
+                    model.Parent.UserId = module.GetUserInfo(model.Users).Id;     //select userID
+                    int parentID = parentMod.CreateParent(model.Parent);                   //save parent info
+                    int studentID = studentMod.CreateStudent(model.Student);                //save student info
 
-                StudentParent stuParModel = new StudentParent { ParentID = parentID, StudentID = studentID };
+                    StudentParent stuParModel = new StudentParent { ParentID = parentID, StudentID = studentID };
 
-                stuParMod.CreateStudentParent(stuParModel);     //save StudentParent info
-
+                    stuParMod.CreateStudentParent(stuParModel);     //save StudentParent info
+                }
             }
 
             return Json(resultVal.Result);
         }
+
+
 
         /***************************************************
          * 
@@ -172,11 +185,54 @@ namespace coreTest11.Controllers
         }
 
 
+        /***********************************************************************************
+         * 
+         * Login
+         * 
+         * *********************************************************************************/
+
+        //
+        // POST: /api/UserAPI/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation(1, "User logged in.");
+                    return RedirectToLocal(returnUrl);
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning(2, "User account locked out.");
+                    return View("Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
         [Route("Test")]
-        public void GetTest(Users user)
+        public JsonResult GetTest(Users user)
         {
             UserModule module = new UserModule(_context, _userManager, _signInManager);
-            module.GetUpdateUserInfo(user);
+            var resultVal = module.CreateUserByDeskTop(user);
+//            module.GetUpdateUserInfo(user);
+            return Json(resultVal);
         }
 
         [Route("GetTestList")]
@@ -189,6 +245,17 @@ namespace coreTest11.Controllers
         }
 
 
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
 
 
     }

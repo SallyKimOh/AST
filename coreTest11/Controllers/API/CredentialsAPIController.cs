@@ -27,6 +27,7 @@ namespace coreTest11.Controllers.API
             return Json(resultVal);
         }
 
+        [Route("CredentialsInfo")]
         public JsonResult GetInfo(int id)
         {
             var item = _context.Credentials.FirstOrDefault(t => t.CredentialsID == id);

@@ -15,8 +15,8 @@ namespace coreTest11.Models
         public int StudentID { get; set; }
         [ForeignKey("UserId")]
         public String UserId { get; set; }
-        [ForeignKey("ClassroomID")]
-        public int ClassroomID { get; set; }
+ //       [ForeignKey("ClassroomID")]
+ //       public int ClassroomID { get; set; }
         //[StringLength(50), Required]
         //public string FirstName { get; set; }
         //[StringLength(50), Required]
@@ -31,8 +31,7 @@ namespace coreTest11.Models
         [StringLength(20)]
         public string DoctorPhoneNumber { get; set; }
         public string PhotoUrl { get; set; }
-        [ForeignKey("CredentialsID"), DefaultValue(false)]
-        public int CredentialsID { get; set; }
+        public String Key { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
