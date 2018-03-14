@@ -16,8 +16,8 @@ namespace coreTest11.Models
         public int StudentID { get; set; }
         [ForeignKey("ParentID")]
         public int ParentID { get; set; }
-        [DefaultValue(false)]
-        public bool IsActive { get; set; }
+        //[DefaultValue(false)]
+        //public bool IsActive { get; set; }
 
     }
 }

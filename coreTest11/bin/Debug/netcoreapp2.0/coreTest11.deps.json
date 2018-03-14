@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "9e7c3d33448768b31acf6cec8fffa1d866c8766a"
+    "signature": "05ffa2deb455656d8fe779d44ca13f1fac32500b"
   },
   "compilationOptions": {
     "defines": [
@@ -29,6 +29,7 @@
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "2.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
           "Microsoft.AspNetCore.Mvc": "2.0.2",
+          "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation": "2.0.2",
           "Microsoft.AspNetCore.StaticFiles": "2.0.1",
           "Microsoft.EntityFrameworkCore.Design": "2.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.1",
@@ -716,6 +717,12 @@
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/2.0.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting": "2.0.1",
+          "Microsoft.AspNetCore.Mvc.RazorPages": "2.0.2"
         }
       },
       "Microsoft.AspNetCore.Mvc.RazorPages/2.0.2": {
@@ -3642,6 +3649,13 @@
       "sha512": "sha512-voxpNz4zq9RxOPnK5oYchyA1ggNVpnz34mFsqwH7G9RUJHFLhjlRaeaKXi8gGwWU3RomGF9ahhH9o8DHgdxmPA==",
       "path": "microsoft.aspnetcore.mvc.razor.extensions/2.0.1",
       "hashPath": "microsoft.aspnetcore.mvc.razor.extensions.2.0.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-umyzHhXoyc8uWWYNPXghv0CaM/kw60SofYNClDJ/gnmgBVZvx6NO8AV89ANT6PA1N9l3I8qkSK3drzUWnQnRng==",
+      "path": "microsoft.aspnetcore.mvc.razor.viewcompilation/2.0.2",
+      "hashPath": "microsoft.aspnetcore.mvc.razor.viewcompilation.2.0.2.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.RazorPages/2.0.2": {
       "type": "package",

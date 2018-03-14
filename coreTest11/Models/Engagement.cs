@@ -11,8 +11,8 @@ namespace coreTest11.Models
     {
         [Key]
         public int EngagementID { get; set; }
-        [ForeignKey("UserID")]
-        public string UserID { get; set; }
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
         [ForeignKey("ClassroomID")]
         public int ClassroomID { get; set; }
         public int EngagementType { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -30,6 +31,12 @@ namespace coreTest11.Models
         [StringLength(20)]
         public string DoctorPhoneNumber { get; set; }
         public string PhotoUrl { get; set; }
+        [ForeignKey("CredentialsID"), DefaultValue(false)]
+        public int CredentialsID { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
 
 
     }

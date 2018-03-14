@@ -11,8 +11,8 @@ namespace coreTest11.Models
     {
         [Key]
         public int TeacherID { get; set; }
-        [ForeignKey("UserID")]
-        public String UserID { get; set; }
+        [ForeignKey("UserId")]
+        public String UserId { get; set; }
         [ForeignKey("ClassroomID")]
         public int ClassroomID { get; set; }
 //        [StringLength(50), Required]

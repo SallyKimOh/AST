@@ -10,3 +10,4 @@ D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.Assembly
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.AssemblyInfo.cs
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.dll
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.pdb
+D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

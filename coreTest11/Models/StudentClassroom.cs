@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace coreTest11.Models
         public int StudentID { get; set; }
         [ForeignKey("ClassroomID")]
         public int ClassroomID { get; set; }
+        [DefaultValue(false)]
+        public bool IsActive { get; set; }
+        public DateTime CreateDT { get; set; }
 
     }
 }

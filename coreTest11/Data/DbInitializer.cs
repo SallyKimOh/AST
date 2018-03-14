@@ -70,16 +70,16 @@ namespace coreTest11.Data
 
             var teacher = new Teacher[]
             {
-                new Teacher { UserID=users[0].Id, ClassroomID = classroom [0].ClassroomID},
-                new Teacher { UserID=users[1].Id, ClassroomID = classroom [1].ClassroomID},
-                new Teacher { UserID=users[2].Id, ClassroomID = classroom [2].ClassroomID},
-                new Teacher { UserID=users[3].Id, ClassroomID = classroom [3].ClassroomID},
-                new Teacher { UserID=users[4].Id, ClassroomID = classroom [4].ClassroomID},
-                new Teacher { UserID=users[5].Id, ClassroomID = classroom [5].ClassroomID},
-                new Teacher { UserID=users[6].Id, ClassroomID = classroom [6].ClassroomID},
-                new Teacher { UserID=users[7].Id, ClassroomID = classroom [7].ClassroomID},
-                new Teacher { UserID=users[8].Id, ClassroomID = classroom [8].ClassroomID},
-                new Teacher { UserID=users[9].Id, ClassroomID = classroom [9].ClassroomID}
+                new Teacher { UserId=users[0].Id, ClassroomID = classroom [0].ClassroomID},
+                new Teacher { UserId=users[1].Id, ClassroomID = classroom [1].ClassroomID},
+                new Teacher { UserId=users[2].Id, ClassroomID = classroom [2].ClassroomID},
+                new Teacher { UserId=users[3].Id, ClassroomID = classroom [3].ClassroomID},
+                new Teacher { UserId=users[4].Id, ClassroomID = classroom [4].ClassroomID},
+                new Teacher { UserId=users[5].Id, ClassroomID = classroom [5].ClassroomID},
+                new Teacher { UserId=users[6].Id, ClassroomID = classroom [6].ClassroomID},
+                new Teacher { UserId=users[7].Id, ClassroomID = classroom [7].ClassroomID},
+                new Teacher { UserId=users[8].Id, ClassroomID = classroom [8].ClassroomID},
+                new Teacher { UserId=users[9].Id, ClassroomID = classroom [9].ClassroomID}
             };
 
             foreach (Teacher m in teacher)

@@ -6,6 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Module\API\BankAccountModule.cs_" />
+    <Compile Include="Module\API\EngagementModule.cs_" />
+    <Compile Include="Module\API\EngagementNotificationModule.cs_" />
+    <Compile Include="Module\API\FormFieldModule.cs_" />
+    <Compile Include="Module\API\FormFieldTypeModule.cs_" />
+    <Compile Include="Module\API\FormModule.cs_" />
+    <Compile Include="Module\API\FormPageModule.cs_" />
+    <Compile Include="Module\API\FormTemplateFieldModule.cs_" />
+    <Compile Include="Module\API\FormTemplateModule.cs_" />
+    <Compile Include="Module\API\FormTemplatePageModule.cs_" />
+    <Compile Include="Module\API\StudentClassroomModule.cs_" />
+    <Compile Include="Module\API\StudentformFieldModule.cs_" />
+    <Compile Include="Module\API\StudentFormModule.cs_" />
+    <Compile Include="Module\API\TeacherModule.cs_" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.1" />
@@ -27,6 +44,14 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Module\API\CredentialsModule.cs" />
+    <None Include="Module\API\ParentModule.cs" />
+    <None Include="Module\API\StudentModule.cs" />
+    <None Include="Module\API\StudentParentModule.cs" />
+    <None Include="Module\API\UserModule.cs" />
   </ItemGroup>
 
 </Project>

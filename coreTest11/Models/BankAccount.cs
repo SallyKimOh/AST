@@ -12,8 +12,8 @@ namespace coreTest11.Models
 
         [Key]
         public int BankAccountID { get; set; }
-        [ForeignKey("UserID")]
-        public String UserID { get; set; }
+        [ForeignKey("UserId")]
+        public String UserId { get; set; }
         [StringLength(50), Required]
         public String Name { get; set; }
         [StringLength(50), Required]

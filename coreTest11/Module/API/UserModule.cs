@@ -10,18 +10,16 @@ using coreTest11.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace coreTest11.Controllers
+namespace coreTest11.Module.API
 {
-    [Produces("application/json")]
-    [Route("api/UserAPI")]
-    public class UserAPIController : Controller
+    public class UserModule
     {
 
         private readonly SchoolDbContext _context;
         private readonly UserManager<Users> _userManager;
         private readonly SignInManager<Users> _signInManager;
 
-        public UserAPIController(SchoolDbContext context, UserManager<Users> userManager,SignInManager<Users> signInManager)
+        public UserModule(SchoolDbContext context, UserManager<Users> userManager,SignInManager<Users> signInManager)
         {
             _context = context;
             _userManager = userManager;
@@ -29,80 +27,62 @@ namespace coreTest11.Controllers
 
         }
 
-        public JsonResult GetAll()
+        public List<Users> GetList()
         {
             var returnVal = _context.Users.ToList();
-            return Json(returnVal);
+            return returnVal;
         }
 
-
-        [Route("UserList")]
-        public JsonResult GetUserList()
+        public async Task<ReturnMessage> CreateUser(RegisterViewModel model)
         {
-            var returnVal = _context.Users.ToList();
-            return Json(returnVal);
-        }
-
-
-        /*******************************************************************************************************
-          * GET: /api/UserAPI/CreateUser
-          * user/{email}/{password}/Register
-          * MPX Your account creates.
-          * Return result
-          * http://localhost:61682/api/UserAPI/CreateUser?email=aaa263@aaa.com&password=T123456%26t
-          *******************************************************************************************************/
-        [Route("CreateUser")]
-        public async Task<JsonResult> CreateUser(RegisterViewModel model)
-        {
-
-            var user = new Users { UserName = model.Email, Email = model.Email };
+            var user = new Users { UserName = model.Email, Email = model.Email, IsActive = false };
             var result = await _userManager.CreateAsync(user, model.Password);
 
-            
+            ReturnMessage item;
             if (result.Succeeded)
             {
                 _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return Json(new { Succeeded = true, statusCode = 200 });
+
+                item = new ReturnMessage { Succeeded = true, StatusCode = 200 };
             }
             else
             {
-                return Json(result);
+                item = new ReturnMessage { Succeeded = false, StatusCode = 500 };
             }
+            return item;
 
         }
-
-        [Route("CreateParent")]
-        public JsonResult CreateParent(Parent item)
+        public async Task<ReturnMessage> CreateUserByDeskTop(Users model)
         {
+			
+            var user = new Users { UserName = model.Email, Email = model.Email, IsActive = false };
+            var result = await _userManager.CreateAsync(user, model.PasswordHash);
 
-            if (item.UserId == null)
+            ReturnMessage item;
+            if (result.Succeeded)
             {
-                return Json(BadRequest());
+                _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                item = new ReturnMessage { Succeeded = true, StatusCode = 200 };
             }
-
-            _context.Parent.Add(item);
-            _context.SaveChanges();
-
-            return Json(new { Succeeded = true, statusCode = 200 });
- 
-        }
-
-        [Route("GetUserInfo")]
-        public Users GetUserInfo(Users users)
-        {
-
-            var item = _context.Users.FirstOrDefault(t => t.Email == users.Email);
-            if (item == null)
+            else
             {
-                return null;
+                item = new ReturnMessage { Succeeded = false, StatusCode = 500 };
             }
-
             return item;
 
         }
 
-        [Route("GetUserInfoByEmail")]
+        public Users GetUserInfo(Users user)
+        {
+
+            var item = _context.Users.FirstOrDefault(t => t.Email == user.Email);
+            return item;
+
+        }
+
         public async Task<Users> GetUserInfoAsync(string email, string password)
         {
             if (await GetUserValidationAsync(email, password))
@@ -114,6 +94,19 @@ namespace coreTest11.Controllers
 
             return null;
 
+        }
+
+		public bool GetUpdateUserInfo(Users item)
+        {
+
+            Users user = _context.Users.Where(f => f.Id == item.Id).FirstOrDefault();
+
+            user.FirstName = item.FirstName;
+            user.LastName = item.LastName;
+
+            _context.SaveChanges();
+
+            return true;
         }
 
         public async Task<Boolean> GetUserValidationAsync(string email, string password)
@@ -131,26 +124,6 @@ namespace coreTest11.Controllers
 
         }
 
-
-
-        [Route("CreateUserTest")]
-        public async Task<JsonResult> CreateUserTest(RegisterViewModel model)
-        {
-
-                var user = new Users { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return Json(new { Succeeded = true, statusCode = 200 });
-                }
-                else
-                {
-                    return Json(result);
-                }
-
-        }
 
 
         //[HttpPost]

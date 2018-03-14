@@ -11,8 +11,8 @@ namespace coreTest11.Models
     {
         [Key]
         public long FormTemplateID { get; set; }
-        [ForeignKey("UserID")]
-        public string UserID { get; set; }
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
         public int FormType { get; set; }
         [StringLength(50), Required]
         public string Name { get; set; }
