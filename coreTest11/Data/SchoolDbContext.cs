@@ -39,6 +39,13 @@ namespace coreTest11.Data
         //        public DbSet<User> Users { get; set; }
         public DbSet<Credentials> Credentials { get; set; }
         public DbSet<Teacher> Teacher { get; set; }
+        public DbSet<SchoolActivity> SchoolActivity { get; set; }
+        public DbSet<Application> Application { get; set; }
+        public DbSet<ApplicationRequirement> ApplicationRequirement { get; set; }
+        public DbSet<ActivityConfirm> ActivityConfirm { get; set; }
+        public DbSet<ClassActivity> ClassActivity { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -65,6 +72,13 @@ namespace coreTest11.Data
             builder.Entity<Users>().ToTable("AspNetUsers");
             builder.Entity<Credentials>().ToTable("Credentials");
             builder.Entity<Teacher>().ToTable("Teacher");
+            builder.Entity<Application>().ToTable("Application");
+            builder.Entity<SchoolActivity>().ToTable("SchoolActivity");
+            builder.Entity<ApplicationRequirement>().ToTable("ApplicationRequirement");
+            builder.Entity<ActivityConfirm>().ToTable("ActivityConfirm");
+            builder.Entity<ClassActivity>().ToTable("ClassActivity");
+            builder.Entity<Notification>().ToTable("Notification");
+
         }
     }
 }

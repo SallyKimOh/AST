@@ -30,5 +30,14 @@ namespace coreTest11.Module.API
             var item = _context.StudentClassroom.FirstOrDefault(t => t.StudentID == id);
             return item;
         }
+
+        public int CreateStuClassroom(StudentClassroom item)
+        {
+            _context.StudentClassroom.Add(item);
+            _context.SaveChanges();
+
+            return item.StudentClassroomID;
+        }
+
     }
 }

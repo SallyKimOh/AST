@@ -61,6 +61,7 @@ namespace coreTest11.Controllers
          * ADD Parent info
          * ADD Student info
          * Add StudentParent info
+         * Add StudentClassroom info
          * http://localhost:61682/api/Register/RegisterByDeskTop?Users.FirstName=Sally&Users.LastName=Kim&Users.Email=Sally2@gmail.com&Users.PasswordHash=A1234567!a&Student.FirstName=Justin&Student.LastName=Oh&Student.Key=AAA1234567890&Parent.CellPhone=613-222-2222
          * **********************************************************/
 
@@ -71,8 +72,17 @@ namespace coreTest11.Controllers
             ParentModule parentMod = new ParentModule(_context);
             StudentModule studentMod = new StudentModule(_context);
             StudentParentModule stuParMod = new StudentParentModule(_context);
+            StudentClassroomModule stuClassMod = new StudentClassroomModule(_context);
 
-            //            model.Parent.UserId = "AFDSF";
+            //=========== checking validation for credencials key ===============//
+           var credInfo = GetCredentialsInfo(model.Student.Key);
+//           if ( GetCredentialsInfo(model.Student.Key) == null )
+           if (credInfo == null )
+            {
+                return Json(new { Succeeded = false, statusCode = 501 });
+            }
+            
+
             var resultVal = module.CreateUserByDeskTop(model.Users);
             if (resultVal.Result.StatusCode == 200)     // success Users table
             {
@@ -89,6 +99,11 @@ namespace coreTest11.Controllers
                     StudentParent stuParModel = new StudentParent { ParentID = parentID, StudentID = studentID };
 
                     stuParMod.CreateStudentParent(stuParModel);     //save StudentParent info
+                    StudentClassroom stuClassModel = new StudentClassroom { StudentID = studentID, IsActive = true, ClassroomID = credInfo.Teacher.ClassroomID };
+
+                    stuClassMod.CreateStuClassroom(stuClassModel);      //save studentclassroom
+
+
                 }
             }
 
@@ -103,10 +118,10 @@ namespace coreTest11.Controllers
          * 
          * *************************************************/
         [Route("GetCredentialsInfo")]
-        public JsonResult GetCredentialsInfo(int id)
+        public Credentials GetCredentialsInfo(string key)
         {
             CredentialsModule module = new CredentialsModule(_context);
-            return Json(module.GetInfo(id));
+            return module.GetInfo(key);
         }
 
 
@@ -190,6 +205,15 @@ namespace coreTest11.Controllers
          * Login
          * 
          * *********************************************************************************/
+ /*       // GET: /api/UserAPI/Login
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
 
         //
         // POST: /api/UserAPI/Login
@@ -223,9 +247,10 @@ namespace coreTest11.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+//            return View("../../../index");
         }
 
-
+*/
         [Route("Test")]
         public JsonResult GetTest(Users user)
         {

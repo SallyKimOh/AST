@@ -12,11 +12,7 @@ namespace coreTest11.Module.API
     public class ClassroomModule
     {
         private readonly SchoolDbContext _context;
-
-        public ClassroomModule()
-        {
-        }
-
+                
         public ClassroomModule(SchoolDbContext context)
         {
             _context = context;

@@ -3,11 +3,11 @@ D:\Project\coreTest11\AST\coreTest11\bin\Debug\netcoreapp2.0\coreTest11.deps.jso
 D:\Project\coreTest11\AST\coreTest11\bin\Debug\netcoreapp2.0\coreTest11.runtimeconfig.json
 D:\Project\coreTest11\AST\coreTest11\bin\Debug\netcoreapp2.0\coreTest11.runtimeconfig.dev.json
 D:\Project\coreTest11\AST\coreTest11\bin\Debug\netcoreapp2.0\coreTest11.dll
-D:\Project\coreTest11\AST\coreTest11\bin\Debug\netcoreapp2.0\coreTest11.pdb
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.csprojResolveAssemblyReference.cache
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.csproj.CoreCompileInputs.cache
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.AssemblyInfoInputs.cache
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.AssemblyInfo.cs
+D:\Project\coreTest11\AST\coreTest11\bin\Debug\netcoreapp2.0\coreTest11.pdb
+D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.dll
 D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\coreTest11.pdb
-D:\Project\coreTest11\AST\coreTest11\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

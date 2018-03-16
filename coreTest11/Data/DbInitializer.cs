@@ -112,6 +112,33 @@ namespace coreTest11.Data
             context.SaveChanges();
 
 
+            var activity = new SchoolActivity[]
+            {
+                new SchoolActivity { Address = "Canada Aviation and Space Museum 11, prom. of Aviation, Ottawa, K1K 2X5", Amount = 11, ActivityDT = DateTime.Parse("2018-03-31"),Deadline = DateTime.Parse("2018-03-20"), ArriveOn = DateTime.Parse("2018-03-31 15:30:00"),  DepartAt = DateTime.Parse("2018-03-31 09:30:00"), Notify = true, TripName = "Aviation Museum",
+                    ImageUrl = "activity/2018/Museum0331.pdf",
+                    Description ="Destination: Musée de l¶Aviation et de l'Espace du Canada 11, prom. de l¶Aviation, Ottawa, K1K 2X5 \n But de la sortie: Participer à l¶atelier «Le vol» et explorer le musée. \n Date et heure de départ: le mercredi 21 mars 2018 à 9 h 15 \n Date et heure de retour: le mercredi 21 mars 2018 à 15 h 15 ",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Julie-Payette Ecole Elementaire Publique", Amount = 8.50, ActivityDT = DateTime.Parse("2018-03-25"),Deadline = DateTime.Parse("2018-03-20"), ArriveOn = DateTime.Parse("2018-03-31 18:00:00"), Notify = true, TripName = "Spaghett",
+                    ImageUrl = "activity/2018/spaghetti2018.docx",
+                    Description ="Chers parents, tuteurs et tutrices \n Dans le cadre de la Semaine de la Francophonie, l’école élémentaire publique \n Julie-Payette vous invite à son souper spaghetti annuel. Venez vous joindre à nous pour une soirée conviviale et amusante! ",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
+                    ImageUrl = "activity/2018/Journee_de_sports.pdf",
+                    Description ="Les sessions seront dirigées et supervisées par les entraîneurs et \n enseignants de l’École secondaire publique Louis-Riel. La session \n de soccer sera dirigée par le directeur technique et les entraîneurs de \n la FCB Escola Ottawa.",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Julie-Payette Ecole Elementaire Publique", Amount = 0, ActivityDT = DateTime.Parse("2018-05-31"),Deadline = DateTime.Parse("2018-05-20"), ArriveOn = DateTime.Parse("2018-05-31 15:30:00"),  DepartAt = DateTime.Parse("2018-05-31 09:30:00"), Notify = true, TripName = "Carnaval",
+                    ImageUrl = "activity/2018/carnaval2018.docx",
+                    Description ="Les élèves et le personnel de l’école seront séparés en deux groupes… l’équipe \n ROUGE et l’équipe BLEUE! L’équipe qui accumulera le plus haut taux de participation \n aux journées thèmes, gagnera des points pour son équipe!",
+                    SampleTextExpression = ""}
+            };
+
+            foreach (SchoolActivity m in activity)
+            {
+                context.SchoolActivity.Add(m);
+            }
+
+            context.SaveChanges();
+
 
 
 

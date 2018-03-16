@@ -1,0 +1,127 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MPX.Models
+
+@inject SignInManager<MPXUser> SignInManager
+@inject UserManager<MPXUser> UserManager
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MPX</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:300,300i,400,400i,500,700" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+        <link href="~/styles/Bundled.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="~/lib/angular/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+        <script src="~/js/mpxApp.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link href="~/styles/flaticon/flaticon.css" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="57x57" href="~/images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="~/images/favicon//apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="~/images/favicon//apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="~/images/favicon//apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="~/images/favicon//apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="~/images/favicon//apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="~/images/favicon//apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="~/images/favicon//apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicon//apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="~/images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="~/images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:300,300i,400,400i,500,700" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+        <link href="~/styles/Bundled.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="~/lib/angular/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+        <script src="~/js/mpxApp.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link href="~/styles/flaticon/flaticon.css" rel="stylesheet" />
+        <link rel="apple-touch-icon" sizes="57x57" href="~/images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="~/images/favicon//apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="~/images/favicon//apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="~/images/favicon//apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="~/images/favicon//apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="~/images/favicon//apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="~/images/favicon//apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="~/images/favicon//apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicon//apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="~/images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="~/images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+    </environment>
+
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+
+
+<body id="logreg-wrapper" class="clearfix" ng-app="mpxApp" ng-controller="mainController">
+
+    @*<div class="row">
+            <div class="col-xs-12 logReg-back-btn">
+                <img src="~/images/mpx-logo.png" />
+                <a asp-controller="Home" asp-action="Index">back to MPX</a>
+            </div>
+        </div>*@
+
+    @RenderBody()
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/sideNav.js"></script>
+        <script src="~/js/secondaryNav.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/sideNav.js"></script>
+        <script src="~/js/secondaryNav.js"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+

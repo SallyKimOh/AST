@@ -16,7 +16,8 @@ namespace coreTest11.Models
         [StringLength(20), Required]
         public string Key { get; set; }
         public bool IsActive { get; set; }
-       public DateTime CreateDT { get; set; }
+        public DateTime CreateDT { get; set; } = DateTime.Now;
+        public Teacher Teacher { get; set; }
 
     }
 }
