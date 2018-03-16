@@ -23,7 +23,26 @@ namespace coreTest11.Controllers
 
         public IActionResult Index()
         {
+
+//            InitPasswordChange();
             return View();
+        }
+
+
+        public async Task<IActionResult> InitPasswordChange()
+        {
+            var users = _context.Users.ToList();
+//               .Where(m => m.PasswordHash == "");
+
+            foreach (Users u in users)
+            {
+                var user = await _userManager.FindByIdAsync(u.Id);
+
+                IdentityResult result = await _userManager.ChangePasswordAsync(user, "", "A1234567!a");
+            }
+
+
+            return null;
         }
 
 

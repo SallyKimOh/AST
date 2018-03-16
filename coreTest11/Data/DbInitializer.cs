@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using coreTest11.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace coreTest11.Data
 {
@@ -24,23 +25,27 @@ namespace coreTest11.Data
                 return; // db already seeded
             }
 
-            //Make some users
+        //Make some users
             var users = new Users[]
             {
-                new Users { FirstName="James", LastName="Rodney", Email="james@gmail.com", UserName="james", IsActive=true},
+                new Users { FirstName="James", LastName="Rodney", Email="james@gmail.com", UserName="james", IsActive=true}, 
                 new Users { FirstName="Ben", LastName="Barnaby", Email="ben@gmail.com", UserName="ben", IsActive=true},
-                new Users { FirstName="Mister", LastName="Doctor", Email="Mister@gmail.com", UserName="mister" , IsActive=true},
+                new Users { FirstName="Mister", LastName="Doctor", Email="Mister@gmail.com", UserName="mister" ,IsActive=true},
                 new Users { FirstName="Lara", LastName="Talbot", Email="lara@gmail.com", UserName="lara", IsActive=true },
                 new Users { FirstName="Kelly", LastName="Yaraway", Email="kelly@gmail.com", UserName="kelly", IsActive=true },
                 new Users { FirstName="Sam", LastName="SamLast", Email="sam@gmail.com", UserName="sam", IsActive=true },
                 new Users { FirstName="Dean", LastName="DeanLast", Email="dean@gmail.com", UserName="dean", IsActive=true },
                 new Users { FirstName="Christina", LastName="Chris", Email="chris@gmail.com", UserName="chris", IsActive=true },
-                new Users { FirstName="John", LastName="John", Email="john@gmail.com", UserName="john", IsActive=true },
-                new Users { FirstName="Johnny", LastName="Firechild", Email="johnny@gmail.com", UserName="johnny", IsActive=true }
+                new Users { FirstName="John", LastName="John", Email="john@gmail.com", UserName="john",IsActive=true },
+                new Users { FirstName="Johnny", LastName="Firechild", Email="johnny@gmail.com", UserName="johnny",IsActive=true }
             };
+
+
+
 
             foreach (Users u in users)
             {
+
                 context.Users.Add(u);
             }
 

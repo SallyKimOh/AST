@@ -1,8 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using MPX.Models
 
-@inject SignInManager<MPXUser> SignInManager
-@inject UserManager<MPXUser> UserManager
+@inject SignInManager<Users> SignInManager
+@inject UserManager<Users> UserManager
 
 <!DOCTYPE html>
 <html>
@@ -80,7 +79,7 @@
         <meta name="theme-color" content="#ffffff">
     </environment>
 
-    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+    @*@Html.ApplicationInsightsJavaScript(TelemetryConfiguration)*@
 </head>
 
 

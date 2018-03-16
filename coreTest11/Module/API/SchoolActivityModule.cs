@@ -21,6 +21,11 @@ namespace coreTest11.Module.API
             var resultVal = _context.SchoolActivity.ToList();
             return resultVal;
         }
+        public List<SchoolActivity> GetAllList(string type)
+        {
+            var resultVal = _context.SchoolActivity.ToList();
+            return resultVal;
+        }
 
         public SchoolActivity GetInfo(int id)
         {

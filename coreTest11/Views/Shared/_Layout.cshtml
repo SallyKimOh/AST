@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using coreTest11.Models
+
+@inject SignInManager<Users> SignInManager
+@inject UserManager<Users> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,8 +39,26 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Classroom" asp-action="Index">Classroom</a></li>
+                  
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                     <li><a asp-area="" asp-controller="Classroom" asp-action="Index">Classroom</a></li>
+                     <li><a asp-area="" asp-controller="SchoolActivity" asp-action="Index">Activity</a></li>
+                     <li><a asp-controller="Home" asp-action="ProfilePage" class="dsktp-nav-link truncate" style="float:right; max-width: 100px;">
+                            @UserManager.GetUserName(User)
+                        </a>
+                    </li>
+                    <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logout-form">
+                        <button type="submit" class="logout-btn"><i class="fa fa-power-off"></i>Log out</button>
+                    </form>
+
+                    }
+                    else
+                    {
+
                     <li><a asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>
+                    <li><a asp-controller="Account" asp-action="Register" class="btn btn-primary">Sign Up</a></li>
+                    }
                 </ul>
             </div>
         </div>

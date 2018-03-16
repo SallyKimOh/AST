@@ -242,8 +242,8 @@ namespace coreTest11.Controllers
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
 
-                var fromAddress = new MailAddress("mpxemail@gmail.com", "Mpx");
-                var toAddress = new MailAddress("rams0066@algonquinlive.com", "rams0066");
+                var fromAddress = new MailAddress("test@gmail.com", "ARS");
+                var toAddress = new MailAddress("kim00335@algonquinlive.com", "kim00335");
                 const string fromPassword = "p@ssw0rd!";
                 const string subject = "reset password test";
                 string body = $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>";
@@ -357,7 +357,7 @@ namespace coreTest11.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(SchoolActivityController.Index), "SchoolActivity");
             }
         }
 
