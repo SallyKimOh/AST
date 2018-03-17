@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using coreTest11.Data;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers.API
 {
@@ -23,13 +24,15 @@ namespace coreTest11.Controllers.API
         // GET: api/FormAPI
         public JsonResult Get()
         {
-            var resultVal = _context.Form.ToList();
+            FormModule module = new FormModule(_context);
+            var resultVal = module.GetList();
             return Json(resultVal);
         }
 
         public JsonResult GetInfo(int id)
         {
-            var item = _context.Form.FirstOrDefault(t => t.FormID == id);
+            FormModule module = new FormModule(_context);
+            var item =module.GetInfo(id);
             return Json(item);
         }
     }

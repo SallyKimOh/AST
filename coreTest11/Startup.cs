@@ -129,6 +129,7 @@ namespace coreTest11
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             DbInitializer.Initialize(context);
+
         }
     }
 }

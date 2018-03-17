@@ -25,7 +25,7 @@ namespace coreTest11.Module.API
             return resultVal;
         }
 
-        public Teacher GetBankAccountInfo(int id)
+        public Teacher GetTeacherInfo(int id)
         {
             var item = _context.Teacher.FirstOrDefault(t => t.TeacherID == id);
             return item;

@@ -33,7 +33,24 @@ namespace coreTest11.Module.API
             var item = _context.SchoolActivity.FirstOrDefault(t => t.ActivityID == id);
             return item;
         }
+        public long CreateRequirement(ApplicationRequirement item)
+        {
+            _context.ApplicationRequirement.Add(item);
+            _context.SaveChanges();
 
+            return item.ApplRequireID;
+        }
+
+        public bool UpdateActivity(long id)
+        {
+ 
+            SchoolActivity item = _context.SchoolActivity.Where(f => f.ActivityID == id).FirstOrDefault();
+
+            item.ApplicationYN = true;
+            int result = _context.SaveChanges();
+
+            return Convert.ToBoolean(result);
+        }
 
     }
 }

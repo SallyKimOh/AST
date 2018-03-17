@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using coreTest11.Data;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers.API
 {
@@ -21,15 +22,19 @@ namespace coreTest11.Controllers.API
         }
 
         // GET: api/StudentParentAPI
+        [Route("StudentParentList")]
         public JsonResult Get()
         {
-            var resultVal = _context.StudentParent.ToList();
+            StudentParentModule module = new StudentParentModule(_context);
+            var resultVal = module.GetList();
             return Json(resultVal);
         }
 
+        [Route("StudentParentInfo")]
         public JsonResult GetInfo(int id)
         {
-            var item = _context.StudentParent.FirstOrDefault(t => t.StudentID == id);
+            StudentParentModule module = new StudentParentModule(_context);
+            var item = module.GetInfo(id);
             return Json(item);
         }
     }

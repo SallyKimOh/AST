@@ -12,6 +12,7 @@ using coreTest11.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace coreTest11.Controllers
 {
@@ -75,13 +76,12 @@ namespace coreTest11.Controllers
             StudentClassroomModule stuClassMod = new StudentClassroomModule(_context);
 
             //=========== checking validation for credencials key ===============//
-           var credInfo = GetCredentialsInfo(model.Student.Key);
+            var credInfo = GetCredentialsInfo(model.Student.Key);
 //           if ( GetCredentialsInfo(model.Student.Key) == null )
            if (credInfo == null )
             {
                 return Json(new { Succeeded = false, statusCode = 501 });
             }
-            
 
             var resultVal = module.CreateUserByDeskTop(model.Users);
             if (resultVal.Result.StatusCode == 200)     // success Users table
@@ -102,6 +102,7 @@ namespace coreTest11.Controllers
                     StudentClassroom stuClassModel = new StudentClassroom { StudentID = studentID, IsActive = true, ClassroomID = credInfo.Teacher.ClassroomID };
 
                     stuClassMod.CreateStuClassroom(stuClassModel);      //save studentclassroom
+//                    var roleresult = _userManager.AddToRoleAsync(model.Users, "Superusers");
 
 
                 }
@@ -289,12 +290,22 @@ namespace coreTest11.Controllers
 
        */
         [Route("Test")]
-        public JsonResult GetTest(Users user)
+        public async Task<JsonResult> GetTestAsync(RegisterViewModel model)
         {
             UserModule module = new UserModule(_context, _userManager, _signInManager);
-            var resultVal = module.CreateUserByDeskTop(user);
+
+            var user = new Users { UserName = model.Email, Email = model.Email, IsActive = false };
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Admin");
+                _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+                await _signInManager.SignInAsync(user, isPersistent: false);
+            }
+//            var resultVal = module.CreateUserByDeskTop(user);
 //            module.GetUpdateUserInfo(user);
-            return Json(resultVal);
+            return Json("FADSFA");
         }
 
         [Route("GetTestList")]

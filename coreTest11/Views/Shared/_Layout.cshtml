@@ -4,6 +4,7 @@
 @inject SignInManager<Users> SignInManager
 @inject UserManager<Users> UserManager
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,16 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                      <li><a asp-area="" asp-controller="Classroom" asp-action="Index">Classroom</a></li>
-                     <li><a asp-area="" asp-controller="SchoolActivity" asp-action="Index">Activity</a></li>
+                     @if (User.IsInRole("Parent"))
+                     {
+                        <li><a asp-area="" asp-controller="SchoolActivity" asp-action="ApplicationList">Application</a></li>
+                     }
+                     else
+                     {
+                        <li><a asp-area="" asp-controller="SchoolActivity" asp-action="Index" >Activity</a></li>
+                     }
+
+
                      <li><a asp-controller="Home" asp-action="ProfilePage" class="dsktp-nav-link truncate" style="float:right; max-width: 100px;">
                             @UserManager.GetUserName(User)
                         </a>

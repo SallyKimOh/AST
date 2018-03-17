@@ -27,6 +27,8 @@ namespace coreTest11.Models
         public string Description { get; set; }
         public string SampleTextExpression { get; set; }
         public string FileUrl { get; set; }
+        [DefaultValue(false)]
+        public bool ApplicationYN { get; set; }
 
 
 

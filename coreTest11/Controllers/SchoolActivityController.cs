@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using coreTest11.Data;
 using Microsoft.EntityFrameworkCore;
 using coreTest11.Models;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers
 {
@@ -14,29 +15,52 @@ namespace coreTest11.Controllers
     public class SchoolActivityController : Controller
     {
         private readonly SchoolDbContext _context;
+//        private readonly SchoolActivityModule _actModule;
+
         public SchoolActivityController(SchoolDbContext context)
         {
             _context = context;
         }
         // GET: SchoolActivity
-        public async Task<ActionResult> Index()
+/*        public async Task<ActionResult> Index()
         {
             return View(await _context.SchoolActivity.ToListAsync());
         }
+*/
+        public ActionResult Index()
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            return View(module.GetList());
+        }
+
+        [Route("ApplicationList")]
+        public ActionResult ApplicationList()
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            return View(module.GetList());
+        }
+
 
         [Route("ActivitySelectType")]
-        public ActionResult ActivitySelectType()
+        public ActionResult ActivitySelectType(long id, bool flag)
         {
             var viewModel = new ApplicationRequirement();
+            viewModel.ActivityID = id;
+            viewModel.ApplicationYN = flag;
 
             return View("ActivitySelect", viewModel);
         }
         [Route("SaveApplicationTemp")]
         public ActionResult SaveApplicationTemp(ApplicationRequirement model)
         {
-            var viewModel = new ApplicationRequirement();
-
-            return View("Test", model);
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            long id = module.CreateRequirement(model);
+            
+            if (id != 0)
+            {
+                module.UpdateActivity(model.ActivityID);
+            }
+            return RedirectToAction("Index");
         }
 
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using coreTest11.Data;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers.API
 {
@@ -20,16 +21,20 @@ namespace coreTest11.Controllers.API
 
         }
 
+        [Route("EngagementList")]
         // GET: api/EngagementAPI
         public JsonResult Get()
         {
-            var resultVal = _context.Engagement.ToList();
+            EngagementModule module = new EngagementModule(_context);
+            var resultVal = module.GetList();
             return Json(resultVal);
         }
 
+        [Route("EngagementInfo")]
         public JsonResult GetInfo(int id)
         {
-            var item = _context.Engagement.FirstOrDefault(t => t.EngagementID == id);
+            EngagementModule module = new EngagementModule(_context);
+            var item = module.GetInfo(id);
             return Json(item);
         }
     }

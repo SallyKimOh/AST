@@ -9,6 +9,8 @@ using coreTest11.Models;
 using coreTest11.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace coreTest11.Module.API
 {
@@ -41,6 +43,8 @@ namespace coreTest11.Module.API
             ReturnMessage item;
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Parent");
+
                 _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
@@ -53,6 +57,8 @@ namespace coreTest11.Module.API
             return item;
 
         }
+
+
         public async Task<ReturnMessage> CreateUserByDeskTop(Users model)
         {
 			
@@ -65,6 +71,7 @@ namespace coreTest11.Module.API
             ReturnMessage item;
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Parent");
                 _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
@@ -74,6 +81,8 @@ namespace coreTest11.Module.API
             {
                 item = new ReturnMessage { Succeeded = false, StatusCode = 500 };
             }
+
+ //           await AddToRole(model.Email, "Parent");
             return item;
 
         }
@@ -112,6 +121,15 @@ namespace coreTest11.Module.API
             return true;
         }
 
+
+        public Task<IdentityResult> AddToRole(string email, string role)
+        {
+            Users user = GetUserInfo(new Users { Email = email });
+
+            var roleresult = _userManager.AddToRoleAsync(user, role);
+            return roleresult;
+        }
+
         public async Task<Boolean> GetUserValidationAsync(string email, string password)
         {
 
@@ -129,59 +147,59 @@ namespace coreTest11.Module.API
 
 
 
-        //[HttpPost]
-        //public IActionResult Create([FromBody] TodoItem item)
-        //{
-        //    if (item == null)
-        //    {
-        //        return BadRequest();
-        //    }
+            //[HttpPost]
+            //public IActionResult Create([FromBody] TodoItem item)
+            //{
+            //    if (item == null)
+            //    {
+            //        return BadRequest();
+            //    }
 
-        //    _context.TodoItems.Add(item);
-        //    _context.SaveChanges();
+            //    _context.TodoItems.Add(item);
+            //    _context.SaveChanges();
 
-        //    return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
-        //}
+            //    return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+            //}
 
-        //[HttpPut("{id}")]
-        //public IActionResult Update(long id, [FromBody] TodoItem item)
-        //{
-        //    if (item == null || item.Id != id)
-        //    {
-        //        return BadRequest();
-        //    }
+            //[HttpPut("{id}")]
+            //public IActionResult Update(long id, [FromBody] TodoItem item)
+            //{
+            //    if (item == null || item.Id != id)
+            //    {
+            //        return BadRequest();
+            //    }
 
-        //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
-        //    if (todo == null)
-        //    {
-        //        return NotFound();
-        //    }
+            //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            //    if (todo == null)
+            //    {
+            //        return NotFound();
+            //    }
 
-        //    todo.IsComplete = item.IsComplete;
-        //    todo.Name = item.Name;
+            //    todo.IsComplete = item.IsComplete;
+            //    todo.Name = item.Name;
 
-        //    _context.TodoItems.Update(todo);
-        //    _context.SaveChanges();
-        //    return new NoContentResult();
-        //}
+            //    _context.TodoItems.Update(todo);
+            //    _context.SaveChanges();
+            //    return new NoContentResult();
+            //}
 
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(long id)
-        //{
-        //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
-        //    if (todo == null)
-        //    {
-        //        return NotFound();
-        //    }
+            //[HttpDelete("{id}")]
+            //public IActionResult Delete(long id)
+            //{
+            //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            //    if (todo == null)
+            //    {
+            //        return NotFound();
+            //    }
 
-        //    _context.TodoItems.Remove(todo);
-        //    _context.SaveChanges();
-        //    return new NoContentResult();
-        //}
+            //    _context.TodoItems.Remove(todo);
+            //    _context.SaveChanges();
+            //    return new NoContentResult();
+            //}
+        }
+
+
+
+
     }
-
-
-
-
-}

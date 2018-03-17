@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using coreTest11.Data;
 using Microsoft.AspNetCore.Identity;
 using coreTest11.Models;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers.API
 {
@@ -14,30 +15,30 @@ namespace coreTest11.Controllers.API
     {
 
         private readonly SchoolDbContext _context;
-        private readonly UserManager<Users> _userManager;
-        private readonly SignInManager<Users> _signInManager;
 
-        public ParentAPIController(SchoolDbContext context, UserManager<Users> userManager, SignInManager<Users> signInManager)
+        public ParentAPIController(SchoolDbContext context)
         {
             _context = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
 
         }
 
         // GET: api/ParentAPI
         [HttpGet]
+        [Route("ParentList")]
         public JsonResult Get()
         {
-            var resultVal = _context.Parent.ToList();
+            ParentModule module = new ParentModule(_context);
+            var resultVal = module.GetList();
             return Json(resultVal);
         }
 
         // GET: api/ParentAPI/5
         [HttpGet("{id}", Name = "Get")]
+        [Route("ParentInfo")]
         public JsonResult Get(string id)
         {
-            var item = _context.Parent.FirstOrDefault(t => t.UserId == id);
+            ParentModule module = new ParentModule(_context);
+            var item = module.Get(id);
             return Json(item);
         }
 
@@ -45,33 +46,10 @@ namespace coreTest11.Controllers.API
         [Route("CreateParent")]
         public JsonResult CreateParent(Parent item)
         {
-
-            //if (item.UserId == null)
-            //{
-            //    return Json(BadRequest());
-            //}
-   //         _context.Parent.Add(item);
-   //         _context.SaveChanges();
-
-            return Json(new { Succeeded = true, statusCode = 200 });
+            ParentModule module = new ParentModule(_context);
+            int parentID = module.CreateParent(item);
+            return Json(new { Succeeded = true, statusCode = 200, parentID = parentID });
         }
 
-        // POST: api/ParentAPI
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-        
-        // PUT: api/ParentAPI/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

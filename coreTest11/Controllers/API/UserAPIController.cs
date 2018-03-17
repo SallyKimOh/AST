@@ -9,6 +9,7 @@ using coreTest11.Models;
 using coreTest11.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers.API
 {
@@ -29,17 +30,12 @@ namespace coreTest11.Controllers.API
 
         }
 
-        public JsonResult GetAll()
-        {
-            var returnVal = _context.Users.ToList();
-            return Json(returnVal);
-        }
-
 
         [Route("UserList")]
         public JsonResult GetUserList()
         {
-            var returnVal = _context.Users.ToList();
+            UserModule module = new UserModule(_context,_userManager, _signInManager);
+            var returnVal = module.GetList();
             return Json(returnVal);
         }
 
@@ -55,20 +51,9 @@ namespace coreTest11.Controllers.API
         public async Task<JsonResult> CreateUser(RegisterViewModel model)
         {
 
-            var user = new Users { UserName = model.Email, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            
-            if (result.Succeeded)
-            {
-                _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return Json(new { Succeeded = true, statusCode = 200 });
-            }
-            else
-            {
-                return Json(result);
-            }
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
+            var result = await module.CreateUser(model);
+            return Json(result);
 
         }
 
@@ -76,7 +61,8 @@ namespace coreTest11.Controllers.API
         public Users GetUserInfo(Users users)
         {
 
-            var item = _context.Users.FirstOrDefault(t => t.Email == users.Email);
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
+            var item = module.GetUserInfo(users);
             if (item == null)
             {
                 return null;
@@ -89,9 +75,14 @@ namespace coreTest11.Controllers.API
         [Route("GetUserInfoByEmail")]
         public async Task<Users> GetUserInfoAsync(string email, string password)
         {
-            if (await GetUserValidationAsync(email, password))
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
+
+            var flag = await module.GetUserValidationAsync(email, password);
+
+            Users user = new Users { Email = email };
+            if (flag)
             {
-                var item = _context.Users.FirstOrDefault(t => t.Email == email);
+                var item = module.GetUserInfo(user);
                 return item;
 
             } 
@@ -100,93 +91,19 @@ namespace coreTest11.Controllers.API
 
         }
 
+        
+        [Route("UserValidationCheck")]
         public async Task<Boolean> GetUserValidationAsync(string email, string password)
         {
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
 
-            var result = await _signInManager.PasswordSignInAsync(email, password,false, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var result = await module.GetUserValidationAsync(email, password);
+            return result;
 
         }
 
 
 
-        [Route("CreateUserTest")]
-        public async Task<JsonResult> CreateUserTest(RegisterViewModel model)
-        {
-
-                var user = new Users { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    _context.SaveChanges();                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return Json(new { Succeeded = true, statusCode = 200 });
-                }
-                else
-                {
-                    return Json(result);
-                }
-
-        }
-
-
-        //[HttpPost]
-        //public IActionResult Create([FromBody] TodoItem item)
-        //{
-        //    if (item == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.TodoItems.Add(item);
-        //    _context.SaveChanges();
-
-        //    return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
-        //}
-
-        //[HttpPut("{id}")]
-        //public IActionResult Update(long id, [FromBody] TodoItem item)
-        //{
-        //    if (item == null || item.Id != id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
-        //    if (todo == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    todo.IsComplete = item.IsComplete;
-        //    todo.Name = item.Name;
-
-        //    _context.TodoItems.Update(todo);
-        //    _context.SaveChanges();
-        //    return new NoContentResult();
-        //}
-
-
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(long id)
-        //{
-        //    var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
-        //    if (todo == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.TodoItems.Remove(todo);
-        //    _context.SaveChanges();
-        //    return new NoContentResult();
-        //}
     }
 
 

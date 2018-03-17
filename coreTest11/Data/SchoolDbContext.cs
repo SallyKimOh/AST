@@ -45,6 +45,7 @@ namespace coreTest11.Data
         public DbSet<ActivityConfirm> ActivityConfirm { get; set; }
         public DbSet<ClassActivity> ClassActivity { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Role> Role { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

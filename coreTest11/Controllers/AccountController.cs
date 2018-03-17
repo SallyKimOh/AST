@@ -14,6 +14,8 @@ using coreTest11.Models;
 using coreTest11.Data;
 using coreTest11.Services;
 using coreTest11.Models.AccountViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers
 {
@@ -60,6 +62,8 @@ namespace coreTest11.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+            UserModule module = new UserModule(_dbContext, _userManager, _signInManager);
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -69,7 +73,20 @@ namespace coreTest11.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+
+                    Users user = module.GetUserInfo(new Users { Email = model.Email });
+                    bool roleType =await _userManager.IsInRoleAsync(user, "Parent");
+
+                    string strUrl = "";
+                    string strAction = "";
+
+                    if (roleType)
+                    {
+                        return RedirectToAction(nameof(SchoolActivityController.ApplicationList), "SchoolActivity");
+                    } else
+                    {
+                        return RedirectToAction(nameof(SchoolActivityController.Index), "SchoolActivity");
+                    }
                 }
                 if (result.IsLockedOut)
                 {
@@ -363,4 +380,5 @@ namespace coreTest11.Controllers
 
         #endregion
     }
+
 }

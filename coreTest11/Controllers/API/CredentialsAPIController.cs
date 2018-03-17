@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using coreTest11.Data;
+using coreTest11.Module.API;
 
 namespace coreTest11.Controllers.API
 {
@@ -20,17 +21,20 @@ namespace coreTest11.Controllers.API
 
         }
 
+        [Route("CredentialsList")]
         // GET: api/CredentialsAPI
         public JsonResult Get()
         {
-            var resultVal = _context.Credentials.ToList();
+            CredentialsModule module = new CredentialsModule(_context);
+            var resultVal =module.GetList();
             return Json(resultVal);
         }
 
         [Route("CredentialsInfo")]
         public JsonResult GetInfo(int id)
         {
-            var item = _context.Credentials.FirstOrDefault(t => t.CredentialsID == id);
+            CredentialsModule module = new CredentialsModule(_context);
+            var item = module.GetInfo(id);
             return Json(item);
         }
     }
