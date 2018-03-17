@@ -205,22 +205,11 @@ namespace coreTest11.Controllers
          * Login
          * 
          * *********************************************************************************/
- /*       // GET: /api/UserAPI/Login
+        // GET: /api/Register/Login
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
-        {
-            // Clear the existing external cookie to ensure a clean login process
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
-
-        //
-        // POST: /api/UserAPI/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        [Route("Login")]
+        public async Task<JsonResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -231,26 +220,74 @@ namespace coreTest11.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return Json(new { Succeeded = true, statusCode = 200 });
                 }
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning(2, "User account locked out.");
-                    return View("Lockout");
+                    return Json(new { Succeeded = false, statusCode = 502 }); //lock
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    return Json(new { Succeeded = false, statusCode = 500 });
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
-//            return View("../../../index");
+            return Json(new { Succeeded = false, statusCode = 500 });
         }
 
-*/
+
+
+
+
+        /*       // GET: /api/UserAPI/Login
+               [HttpGet]
+               [AllowAnonymous]
+               public async Task<IActionResult> Login(string returnUrl = null)
+               {
+                   // Clear the existing external cookie to ensure a clean login process
+                   ViewData["ReturnUrl"] = returnUrl;
+                   return View();
+               }
+
+               //
+               // POST: /api/UserAPI/Login
+               [HttpPost]
+               [AllowAnonymous]
+               [ValidateAntiForgeryToken]
+               public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+               {
+                   ViewData["ReturnUrl"] = returnUrl;
+                   if (ModelState.IsValid)
+                   {
+                       // This doesn't count login failures towards account lockout
+                       // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                       var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                       if (result.Succeeded)
+                       {
+                           _logger.LogInformation(1, "User logged in.");
+                           return RedirectToLocal(returnUrl);
+                       }
+                       if (result.IsLockedOut)
+                       {
+                           _logger.LogWarning(2, "User account locked out.");
+                           return View("Lockout");
+                       }
+                       else
+                       {
+                           ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                           return View(model);
+                       }
+                   }
+
+                   // If we got this far, something failed, redisplay form
+                   return View(model);
+       //            return View("../../../index");
+               }
+
+       */
         [Route("Test")]
         public JsonResult GetTest(Users user)
         {

@@ -31,6 +31,14 @@ namespace coreTest11.Controllers
 
             return View("ActivitySelect", viewModel);
         }
+        [Route("SaveApplicationTemp")]
+        public ActionResult SaveApplicationTemp(ApplicationRequirement model)
+        {
+            var viewModel = new ApplicationRequirement();
+
+            return View("Test", model);
+        }
+
 
         /*
                 // GET: SchoolActivity/Details/5
