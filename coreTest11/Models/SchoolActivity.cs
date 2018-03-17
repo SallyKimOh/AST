@@ -26,6 +26,8 @@ namespace coreTest11.Models
         public string ImageUrl { get; set; }
         public string Description { get; set; }
         public string SampleTextExpression { get; set; }
+        public string FileUrl { get; set; }
+
 
 
 

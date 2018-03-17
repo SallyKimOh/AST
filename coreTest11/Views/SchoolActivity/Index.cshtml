@@ -1,39 +1,125 @@
 ﻿@model IEnumerable<coreTest11.Models.SchoolActivity>
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Activity List</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TripName)
-                ClassRoom
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+</table>
+
+
+<div id="content-wrapper" class="clearfix">
+
+    @if (Model.Count()== 0)
+    {
+        <div class="no-favorites">
+            <p>Now No Activity Exist.</p>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary mpx-btn-primary"><i class="fa fa-binoculars"></i>&nbsp;Home</a>
+        </div>
+    }
+    else
+    {
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @*<a asp-controller="Developments" asp-route-id="@item.DID">@Html.DisplayFor(modelItem => item.DName)</a>*@
-                    @item.TripName
-                    @item.ActivityDT
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ActivityID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ActivityID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ActivityID">Delete</a>
-                </td>
-            </tr>
+            <div class="model-card-container">
+
+                <div class="model-card">
+
+                    <div class="model-card-bottom clearfix">
+
+                        <input class="hidden-ActivityID" hidden value="@item.ActivityID" />
+                        <div class="model-card-info">
+                            <div class="model-card-title truncate">
+                                <!-- Check for untitled model?? -->
+                                @if (item.TripName == "")
+                                {
+                                    <span>Untitled</span>
+                                }
+                                else
+                                {
+                                    @item.TripName
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="model-card-image-wrap">
+                        <a asp-area="" asp-controller="SchoolActivity" asp-action="ActivitySelectType" asp-route-id="@item.ActivityID" class="model-card-link">
+
+                            <div class="model-card-image">
+
+                                @if (item.ImageUrl != null)
+                                {
+
+                                    <img width="100" src="upload/@item.ImageUrl" />
+                                }
+                                else
+                                {
+
+                                    <img width="100" src="~/upload/no_profile_picture.png" />
+
+                                }
+                            </div>
+
+                        </a>
+
+                    </div>
+                    <div class="model-card-bottom clearfix">
+
+                        <input class="hidden-ActivityID" hidden value="@item.ActivityID" />
+                        <div class="model-card-info">
+                            <div class="model-card-title truncate">
+                                @item.ActivityDT
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         }
-    </tbody>
-</table>
+     }
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $(".remove-favorite").on("click", function () {
+            var FavouriteID = $(this).closest(".model-card-bottom").find(".hidden-FavouriteID").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getFavoriteRemoveDetails", "Favorites")',
+                data: { FavouriteID: FavouriteID },
+                dataType: "html",
+                success: function (response) {
+                    $('#favorite-remove-options').html(response);
+                },
+                failure: function (response) {
+                    alert("failure");
+                },
+                error: function (response) {
+                    alert("error");
+                }
+            });
+        });
+        
+
+        $(window).load(function () {
+            $('#folder-exists').modal('show');
+        });
+
+    });
+
+
+</script>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using coreTest11.Data;
 using Microsoft.EntityFrameworkCore;
+using coreTest11.Models;
 
 namespace coreTest11.Controllers
 {
@@ -22,82 +23,91 @@ namespace coreTest11.Controllers
         {
             return View(await _context.SchoolActivity.ToListAsync());
         }
-/*
-        // GET: SchoolActivity/Details/5
-        public ActionResult Details(int id)
+
+        [Route("ActivitySelectType")]
+        public ActionResult ActivitySelectType()
         {
-            return View();
+            var viewModel = new ApplicationRequirement();
+
+            return View("ActivitySelect", viewModel);
         }
 
-        // GET: SchoolActivity/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        /*
+                // GET: SchoolActivity/Details/5
+                public ActionResult Details(int id)
+                {
+                    return View();
+                }
 
-        // POST: SchoolActivity/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+                // GET: SchoolActivity/Create
+                public ActionResult Create()
+                {
+                    return View();
+                }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                // POST: SchoolActivity/Create
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                public ActionResult Create(IFormCollection collection)
+                {
+                    try
+                    {
+                        // TODO: Add insert logic here
 
-        // GET: SchoolActivity/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
 
-        // POST: SchoolActivity/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+                // GET: SchoolActivity/Edit/5
+                public ActionResult Edit(int id)
+                {
+                    return View();
+                }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                // POST: SchoolActivity/Edit/5
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                public ActionResult Edit(int id, IFormCollection collection)
+                {
+                    try
+                    {
+                        // TODO: Add update logic here
 
-        // GET: SchoolActivity/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
 
-        // POST: SchoolActivity/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+                // GET: SchoolActivity/Delete/5
+                public ActionResult Delete(int id)
+                {
+                    return View();
+                }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                // POST: SchoolActivity/Delete/5
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                public ActionResult Delete(int id, IFormCollection collection)
+                {
+                    try
+                    {
+                        // TODO: Add delete logic here
 
-*/
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
+
+        */
     }
 }

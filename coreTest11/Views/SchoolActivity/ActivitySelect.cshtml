@@ -1,0 +1,97 @@
+﻿@model coreTest11.Models.ApplicationRequirement
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<section id="secondary-nav">
+    <h2 class="page-name">Activity Create</h2>
+    <div id="list-controls">
+        <a asp-action="#" onclick="history.go(-1);return false;"><img src="~/images/book.png" />Back to List</a>
+    </div>
+</section>
+
+
+<form method="post"
+      asp-controller="Selectors"
+      asp-action="AssetList3">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    Select Requirement for Application
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td width="30">
+                    <input asp-for="HealthIssue" class="form-control" />
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.ParticipationYN)
+                </td>
+            </tr>
+            <tr>
+                <td width="30">
+                    <input asp-for="HealthIssue" class="form-control" />
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.PayYN)
+                </td>
+            </tr>
+            <tr>
+                <td width="30">
+                    <input asp-for="HealthIssue" class="form-control" />
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.VolunteenYN)
+                </td>
+            </tr>
+            <tr>
+                <td width="30">
+                    <input asp-for="HealthIssue" class="form-control" />
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.SignatureYN)
+                </td>
+            </tr>
+            <tr>
+                <td width="30">
+                    <input asp-for="HealthIssue" class="form-control" />
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.DomationYN)
+                </td>
+            </tr>
+            <tr>
+                <td width="30">
+                    <input asp-for="HealthIssue" class="form-control" />
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.HealthIssue)
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">
+                    <div>
+                        &nbsp; &nbsp; <input type="submit" value="Submit" />
+                    </div>
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+</form>
+<hr />
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
