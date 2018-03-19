@@ -112,20 +112,6 @@ namespace coreTest11.Controllers
         }
 
 
-
-        /***************************************************
-         * 
-         * 유효한 인증 키 체크 및 정보 가져오기
-         * 
-         * *************************************************/
-        [Route("GetCredentialsInfo")]
-        public Credentials GetCredentialsInfo(string key)
-        {
-            CredentialsModule module = new CredentialsModule(_context);
-            return module.GetInfo(key);
-        }
-
-
         /***************************************************
          * 
          * Checking Member
@@ -146,10 +132,48 @@ namespace coreTest11.Controllers
         }
 
 
+
+        /*******************************************************************************************************
+          * GET: /api/Register/CreateUser
+          * user/{email}/{password}/Register
+          * MPX Your account creates.
+          * Return result
+          * http://localhost:61682/api/Register/CreateUser?email=aaa263@aaa.com&password=T123456%26t
+          *******************************************************************************************************/
+        [Route("CreateUser")]
+        public async Task<string> CreateUser(RegisterViewModel model)
+        {
+
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
+            var result = await module.CreateUser(model);
+
+            Users user = new Users { Email = model.Email };
+            module.GetUserInfo(user);     //select userID
+
+
+            return module.GetUserInfo(user).Id;
+
+        }
+
+        /***************************************************
+         * 
+         * 유효한 인증 키 체크 및 정보 가져오기
+         * 
+         * *************************************************/
+        [Route("GetCredentialsInfo")]
+        public Credentials GetCredentialsInfo(string key)
+        {
+            CredentialsModule module = new CredentialsModule(_context);
+            return module.GetInfo(key);
+        }
+
+
+
         /************************************************************
          * ADD Parent info
          * 
          * **********************************************************/
+         //api/Register/RegisterParent?userid=fadsfad
 
         [Route("RegisterParent")]
         public int RegisterParent(Parent model)
@@ -160,6 +184,24 @@ namespace coreTest11.Controllers
 
             return parentID;
         }
+
+
+        /****************************************************************************
+         * 
+         * User name update
+         * 
+         * 
+         * Users user = new Users{Id = id, FirstName = firstName, LastName=lastname}
+         * 
+         * *************************************************************************/
+        [Route("GetUpdateUserInfo")]
+        public void GetUpdateUserName(Users user)
+        {
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
+            module.GetUpdateUserInfo(user);
+        }
+
+
 
         /************************************************************
          * ADD Student info
@@ -186,18 +228,6 @@ namespace coreTest11.Controllers
             StudentParentModule stuParMod = new StudentParentModule(_context);
             int studentParentID = stuParMod.CreateStudentParent(model);     //save StudentParent info
             return studentParentID;
-        }
-
-        /****************************************************************************
-         * 
-         * User name update
-         * 
-         * *************************************************************************/
-        [Route("GetUpdateUserInfo")]
-        public void GetUpdateUserName(Users user)
-        {
-            UserModule module = new UserModule(_context, _userManager, _signInManager);
-            module.GetUpdateUserInfo(user);
         }
 
 
@@ -264,6 +294,28 @@ namespace coreTest11.Controllers
             return Json("error");
         }
 
+        [Route("Login3")]
+        public async Task<JsonResult> Login3(LoginViewModel model)
+        {
+            ParentModule module = new ParentModule(_context);
+
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation(1, "User logged in.");
+
+                    List<Parent> item = module.GetParentInfo2(model.Email);
+                    return Json(item);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return Json("error");
+        }
 
         /***********************************************************************************
          * 

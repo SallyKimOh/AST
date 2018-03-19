@@ -63,5 +63,30 @@ namespace coreTest11.Module.API
         }
 
 
+        public List<Parent> GetParentInfo2(string email)
+        {
+            var child = _context.Parent
+                .Include(m => m.Users)
+//                .Include(m => m.StudentParent)
+//                .Include(m => m.Favourites)
+//                .Include(m => m.Collaborations)
+//                    .ThenInclude(col => col.MPXUser)
+//                .Include(m => m.MasterpieceTagRelations)
+//                    .ThenInclude(tr => tr.Tag)
+//                .Include(m => m.Comments)
+//                    .ThenInclude(col => col.MPXUser)
+//                .Where(m => m.Users.Email == email)
+                .Where(m => m.Users.Id == m.UserId)
+//                .ToAsyncEnumerable()
+                .ToList();
+ //               .FirstOrDefault();
+
+//            var childList = _context.Parent.ToList();
+
+            return child;
+
+        }
+
+
     }
 }

@@ -37,6 +37,7 @@ namespace coreTest11.Models
         public int ParentID { get; set; }
         [NotMapped]
         public int StudentID { get; set; }
+//        public List<StudentParent> StudentParents { get; set; } 
 
 
     }
