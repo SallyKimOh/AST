@@ -77,9 +77,6 @@ namespace coreTest11.Controllers
                     Users user = module.GetUserInfo(new Users { Email = model.Email });
                     bool roleType =await _userManager.IsInRoleAsync(user, "Parent");
 
-                    string strUrl = "";
-                    string strAction = "";
-
                     if (roleType)
                     {
                         return RedirectToAction(nameof(SchoolActivityController.ApplicationList), "SchoolActivity");

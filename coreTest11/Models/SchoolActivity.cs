@@ -29,6 +29,7 @@ namespace coreTest11.Models
         public string FileUrl { get; set; }
         [DefaultValue(false)]
         public bool ApplicationYN { get; set; }
+        public ActivityConfirm ActivityConfirm { get; set; }
 
 
 

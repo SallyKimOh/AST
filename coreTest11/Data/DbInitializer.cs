@@ -14,7 +14,7 @@ namespace coreTest11.Data
         public static void Initialize(SchoolDbContext context)
         {
             //If you want db to delete, it will be working for delete.
- //           context.Database.EnsureDeleted();
+//            context.Database.EnsureDeleted();
 
             //Ensure db for our current context exists, else create one
             // NOTE: Will have to change this once we implement migrations

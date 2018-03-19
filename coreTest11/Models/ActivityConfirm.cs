@@ -22,6 +22,7 @@ namespace coreTest11.Models
         [ForeignKey("ApplicationID")]
         public long ApplicationID { get; set; }
         public String SignatureURL { get; set; }
+        public int ParentID { get; set; }
 
     }
 }

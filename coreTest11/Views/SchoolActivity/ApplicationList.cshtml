@@ -16,7 +16,7 @@
                     Activity
                 </th>
                 <th>
-                    Complete Form YN
+                    Application Apply YN
                 </th>
             </tr>
         </thead>
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="model-card-image-wrap">
-                                <a asp-area="" asp-controller="SchoolActivity" asp-action="ActivitySelectType" asp-route-id="@item.ActivityID" asp-route-flag="@item.ApplicationYN" class="model-card-link">
+                                <a asp-area="" asp-controller="SchoolActivity" asp-action="ApplicationForm" asp-route-id="@item.ActivityID" class="model-card-link">
 
                                     <div class="model-card-image">
 
@@ -89,7 +89,6 @@
                                 <div class="model-card-info">
                                     <div class="model-card-title truncate">
                                         @item.ActivityDT
-
                                     </div>
                                 </div>
 
@@ -99,7 +98,15 @@
 
                     </div>
                 </td>
-                <td>@item.ApplicationYN</td>
+                    @if (item.ActivityConfirm == null ) {
+                <td>
+                        false
+                </td>
+                    } else {
+                <td>
+                        @item.ActivityConfirm.Completed
+                </td>
+                    }
             </tr>
 
                 }

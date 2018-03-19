@@ -33,23 +33,39 @@ namespace coreTest11.Controllers
             return View(module.GetList());
         }
 
+        [Route("ActivityListAPI")]
+        public JsonResult ActivityListAPI()
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            return Json(module.GetList());
+        }
+
+
         [Route("ApplicationList")]
         public ActionResult ApplicationList()
         {
-            SchoolActivityModule module = new SchoolActivityModule(_context);
-            return View(module.GetList());
+            ActivityConfirmModule module = new ActivityConfirmModule(_context);
+            return View(module.GetApplicationList());
         }
 
+        [Route("ApplicationListAPI")]
+        public JsonResult ApplicationListAPI()
+        {
+            ActivityConfirmModule module = new ActivityConfirmModule(_context);
+            return Json(module.GetApplicationList());
+        }
 
         [Route("ActivitySelectType")]
         public ActionResult ActivitySelectType(long id, bool flag)
         {
             var viewModel = new ApplicationRequirement();
-            viewModel.ActivityID = id;
+               viewModel.ActivityID = id;
             viewModel.ApplicationYN = flag;
 
             return View("ActivitySelect", viewModel);
         }
+
+
         [Route("SaveApplicationTemp")]
         public ActionResult SaveApplicationTemp(ApplicationRequirement model)
         {
@@ -62,6 +78,47 @@ namespace coreTest11.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [Route("ApplicationForm")]
+        public ActionResult ApplicationForm(long id)
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            ApplicationRequirement model = module.GetRequirement(id);
+
+            var viewModel = model;
+
+            return View("ApplicationForm", viewModel);
+        }
+
+        [Route("ApplicationFormAPI")]
+        public JsonResult ApplicationFormAPI(long id)
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            ApplicationRequirement model = module.GetRequirement(id);
+
+            return Json(model);
+        }
+
+        [Route("CreateApplication")]
+        public ActionResult CreateApplication(Application item)
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            long id = module.CreateApplication(item);
+
+            ActivityConfirmModule module1 = new ActivityConfirmModule(_context);
+            return View(module1.GetApplicationList());
+        }
+
+        [Route("CreateApplicationAPI")]
+        public JsonResult CreateApplicationAPI(Application item)
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            long id = module.CreateApplication(item);
+//            item.ActivityConfirm.ApplicationID = id;
+ //           int activityConfirmID = module.CreateActivityConfirm(item.ActivityConfirm);
+            return Json(id);
+        }
+
 
 
         /*

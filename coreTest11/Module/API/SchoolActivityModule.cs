@@ -52,5 +52,29 @@ namespace coreTest11.Module.API
             return Convert.ToBoolean(result);
         }
 
+        
+        public long CreateApplication(Application item)
+        {
+            _context.Application.Add(item);
+            _context.SaveChanges();
+
+            return item.ApplicationID;
+        }
+
+        public ApplicationRequirement GetRequirement(long id)
+        {
+            var item = _context.ApplicationRequirement.FirstOrDefault(t => t.ActivityID == id);
+            return item;
+        }
+
+        public int CreateActivityConfirm(ActivityConfirm item)
+        {
+            _context.ActivityConfirm.Add(item);
+            _context.SaveChanges();
+
+            return item.ActivityConfirmID;
+        }
+
+
     }
 }

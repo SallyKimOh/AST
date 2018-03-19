@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace coreTest11.Models
 {
@@ -24,6 +25,19 @@ namespace coreTest11.Models
         public string TwitterURL { get; set; }
 
         public string SteamURL { get; set; }
+
+//        [NotMapped]
+//        public Student Student { get; set; }
+//        [NotMapped]
+//        public Parent Parent { get; set; }
+//        [NotMapped]
+//        public StudentParent StudentParent { get; set; }
+
+        [NotMapped]
+        public int ParentID { get; set; }
+        [NotMapped]
+        public int StudentID { get; set; }
+
 
     }
 }
