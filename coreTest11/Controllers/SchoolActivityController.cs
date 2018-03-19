@@ -79,6 +79,23 @@ namespace coreTest11.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: /SchoolActivity/SaveApplicationTempAPI
+
+
+        [Route("SaveApplicationTempAPI")]
+        public long SaveApplicationTempAPI(ApplicationRequirement model)
+        {
+            SchoolActivityModule module = new SchoolActivityModule(_context);
+            long id = module.CreateRequirement(model);
+
+            if (id != 0)
+            {
+                module.UpdateActivity(model.ActivityID);
+            }
+            return id;
+        }
+
+
         [Route("ApplicationForm")]
         public ActionResult ApplicationForm(long id)
         {
