@@ -14,7 +14,7 @@ namespace coreTest11.Data
         public static void Initialize(SchoolDbContext context)
         {
             //If you want db to delete, it will be working for delete.
-//            context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
 
             //Ensure db for our current context exists, else create one
             // NOTE: Will have to change this once we implement migrations
@@ -46,16 +46,16 @@ namespace coreTest11.Data
             //Make some users
             var users = new Users[]
             {
-                new Users { FirstName="James", LastName="Rodney", Email="james@gmail.com", UserName="james", IsActive=true}, 
-                new Users { FirstName="Ben", LastName="Barnaby", Email="ben@gmail.com", UserName="ben", IsActive=true},
-                new Users { FirstName="Mister", LastName="Doctor", Email="Mister@gmail.com", UserName="mister" ,IsActive=true},
-                new Users { FirstName="Lara", LastName="Talbot", Email="lara@gmail.com", UserName="lara", IsActive=true },
-                new Users { FirstName="Kelly", LastName="Yaraway", Email="kelly@gmail.com", UserName="kelly", IsActive=true },
-                new Users { FirstName="Sam", LastName="SamLast", Email="sam@gmail.com", UserName="sam", IsActive=true },
-                new Users { FirstName="Dean", LastName="DeanLast", Email="dean@gmail.com", UserName="dean", IsActive=true },
-                new Users { FirstName="Christina", LastName="Chris", Email="chris@gmail.com", UserName="chris", IsActive=true },
-                new Users { FirstName="John", LastName="John", Email="john@gmail.com", UserName="john",IsActive=true },
-                new Users { FirstName="Johnny", LastName="Firechild", Email="johnny@gmail.com", UserName="johnny",IsActive=true }
+                new Users { FirstName="James", LastName="Rodney", Email="james@gmail.com", UserName="james", IsActive=true,PasswordHash="", NormalizedEmail="james@gmail.com", NormalizedUserName="james@gmail.com",SecurityStamp="111111"}, 
+                new Users { FirstName="Ben", LastName="Barnaby", Email="ben@gmail.com", UserName="ben", IsActive=true, PasswordHash="",NormalizedEmail="ben@gmail.com", NormalizedUserName="ben@gmail.com",SecurityStamp="111111"},
+                new Users { FirstName="Mister", LastName="Doctor", Email="Mister@gmail.com", UserName="mister" ,IsActive=true, PasswordHash="",NormalizedEmail="Mister@gmail.com", NormalizedUserName="Mister@gmail.com",SecurityStamp="111111"},
+                new Users { FirstName="Lara", LastName="Talbot", Email="lara@gmail.com", UserName="lara", IsActive=true , PasswordHash="",NormalizedEmail="lara@gmail.com", NormalizedUserName="lara@gmail.com",SecurityStamp="111111"},
+                new Users { FirstName="Kelly", LastName="Yaraway", Email="kelly@gmail.com", UserName="kelly", IsActive=true , PasswordHash="",NormalizedEmail="kelly@gmail.com", NormalizedUserName="kelly@gmail.com",SecurityStamp="111111"},
+                new Users { FirstName="Sam", LastName="SamLast", Email="sam@gmail.com", UserName="sam", IsActive=true , PasswordHash="",NormalizedEmail="sam@gmail.com", NormalizedUserName="sam@gmail.com",SecurityStamp="111111"},
+                new Users { FirstName="Dean", LastName="DeanLast", Email="dean@gmail.com", UserName="dean", IsActive=true , PasswordHash="",NormalizedEmail="dean@gmail.com", NormalizedUserName="dean@gmail.com",SecurityStamp="111111"},
+                new Users { FirstName="Christina", LastName="Chris", Email="chris@gmail.com", UserName="chris", IsActive=true, PasswordHash="",NormalizedEmail="chris@gmail.com", NormalizedUserName="chris@gmail.com",SecurityStamp="111111" },
+                new Users { FirstName="John", LastName="John", Email="john@gmail.com", UserName="john",IsActive=true, PasswordHash="",NormalizedEmail="john@gmail.com", NormalizedUserName="john@gmail.com",SecurityStamp="111111" },
+                new Users { FirstName="Johnny", LastName="Firechild", Email="johnny@gmail.com", UserName="johnny",IsActive=true, PasswordHash="",NormalizedEmail="johnny@gmail.com", NormalizedUserName="johnny@gmail.com",SecurityStamp="111111" }
             };
 
 

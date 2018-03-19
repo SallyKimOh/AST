@@ -265,6 +265,31 @@ namespace coreTest11.Controllers
         }
 
 
+        /***********************************************************************************
+         * 
+         * InitPasswordReset
+         * 
+         * *********************************************************************************/
+        //POST: /api/Register/InitPasswordReset
+        [Route("InitPasswordReset")]
+        public async Task<JsonResult> InitPasswordReset(ResetPasswordViewModel model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Email);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            string url = System.Web.HttpUtility.UrlDecode(model.Code);
+            var result = await _userManager.ResetPasswordAsync(user, url, model.Password);
+ //           var result = await _userManager.ResetPasswordAsync(user, "", model.Password);
+//            if (result.Succeeded)
+//            {
+//                return Json(new { Succeeded = true, statusCode = 200 });
+//            }
+            return Json(result);
+//            return Json(new { Succeeded = false, statusCode = 503 });
+        }
+
+
+
         [Route("LoginTest")]
         public async Task<JsonResult> LoginTest(LoginViewModel model)
         {

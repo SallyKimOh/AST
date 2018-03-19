@@ -346,8 +346,7 @@ namespace coreTest11.Controllers
             return View();
         }
 
-        
-
+ 
         #region Helpers
 
         private void AddErrors(IdentityResult result)
