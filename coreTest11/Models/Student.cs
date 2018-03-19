@@ -31,10 +31,13 @@ namespace coreTest11.Models
         [StringLength(20)]
         public string DoctorPhoneNumber { get; set; }
         public string PhotoUrl { get; set; }
-        public String Key { get; set; }
+        public string Key { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public int ParentID { get; set; }
+        public Parent Parent { get; set; }
 
 
 

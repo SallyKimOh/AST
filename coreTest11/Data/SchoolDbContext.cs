@@ -65,6 +65,11 @@ namespace coreTest11.Data
             builder.Entity<FormTemplateField>().ToTable("FormTemplateField");
             builder.Entity<FormTemplatePage>().ToTable("FormTemplatePage");
             builder.Entity<Parent>().ToTable("Parent");
+            builder.Entity<Student>()
+            .HasOne(tr => tr.Parent)
+            .WithMany(m => m.Students)
+            .HasForeignKey(tr => tr.ParentID);
+
             builder.Entity<Student>().ToTable("Student");
             builder.Entity<StudentClassroom>().ToTable("StudentClassroom");
             builder.Entity<StudentForm>().ToTable("StudentForm");

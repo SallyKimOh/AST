@@ -28,7 +28,10 @@ namespace coreTest11.Models
         [NotMapped]
         public Users Users { get; set; }
 //        public List<StudentParent> StudentParents { get; set; }
-        public StudentParent StudentParent { get; set; }
+ //       public StudentParent StudentParent { get; set; }
+
+        public List<Student> Students { get; set; }
+
 
 
     }

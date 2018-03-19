@@ -94,6 +94,7 @@ namespace coreTest11.Controllers
                     } 
                     model.Parent.UserId = module.GetUserInfo(model.Users).Id;     //select userID
                     int parentID = parentMod.CreateParent(model.Parent);                   //save parent info
+                    model.Student.ParentID = parentID;
                     int studentID = studentMod.CreateStudent(model.Student);                //save student info
 
                     StudentParent stuParModel = new StudentParent { ParentID = parentID, StudentID = studentID };
@@ -205,7 +206,7 @@ namespace coreTest11.Controllers
 
         /************************************************************
          * ADD Student info
-         * 
+         * Firstname,lastname,parentid
          * **********************************************************/
 
         [Route("RegisterStudent")]
