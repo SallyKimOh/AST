@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "d528c49af47ead1708b11ff3789ee94c1276637c"
+    "signature": "56baaf0b8f91b2684121da5df7a04ff9aff0a2d4"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,7 @@
     ".NETCoreApp,Version=v2.0": {
       "coreTest11/1.0.0": {
         "dependencies": {
+          "AspNetCore.Http.Extensions": "1.0.0",
           "Microsoft.ApplicationInsights.AspNetCore": "2.2.1",
           "Microsoft.AspNetCore": "2.0.1",
           "Microsoft.AspNetCore.Authentication.Cookies": "2.0.1",
@@ -47,6 +48,17 @@
         },
         "compile": {
           "coreTest11.dll": {}
+        }
+      },
+      "AspNetCore.Http.Extensions/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AspNetCore.Http.Extensions.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/AspNetCore.Http.Extensions.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -3334,6 +3346,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AspNetCore.Http.Extensions/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MovQ/IDALqvhY1OyxfyBur+b+KlMF58lcwE51l2xeqhLOcJ7/kj3aPZMok7aS+VOmgMS0J2JwbbHCmoRiHF6Vw==",
+      "path": "aspnetcore.http.extensions/1.0.0",
+      "hashPath": "aspnetcore.http.extensions.1.0.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",

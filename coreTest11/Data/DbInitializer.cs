@@ -14,7 +14,7 @@ namespace coreTest11.Data
         public static void Initialize(SchoolDbContext context)
         {
             //If you want db to delete, it will be working for delete.
-//            context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
 
             //Ensure db for our current context exists, else create one
             // NOTE: Will have to change this once we implement migrations
@@ -147,6 +147,42 @@ namespace coreTest11.Data
                     FileUrl = "activity/2018/spaghetti2018.docx",
                     ApplicationYN = false,
                     Description ="Chers parents, tuteurs et tutrices \n Dans le cadre de la Semaine de la Francophonie, l’école élémentaire publique \n Julie-Payette vous invite à son souper spaghetti annuel. Venez vous joindre à nous pour une soirée conviviale et amusante! ",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
+                    ImageUrl = "activity/2018/sample1.jpg",
+                    FileUrl = "activity/2018/Journee_de_sports.pdf",
+                    ApplicationYN = false,
+                    Description ="Les sessions seront dirigées et supervisées par les entraîneurs et \n enseignants de l’École secondaire publique Louis-Riel. La session \n de soccer sera dirigée par le directeur technique et les entraîneurs de \n la FCB Escola Ottawa.",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
+                    ImageUrl = "activity/2018/sample1.jpg",
+                    FileUrl = "activity/2018/Journee_de_sports.pdf",
+                    ApplicationYN = false,
+                    Description ="Les sessions seront dirigées et supervisées par les entraîneurs et \n enseignants de l’École secondaire publique Louis-Riel. La session \n de soccer sera dirigée par le directeur technique et les entraîneurs de \n la FCB Escola Ottawa.",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
+                    ImageUrl = "activity/2018/sample1.jpg",
+                    FileUrl = "activity/2018/Journee_de_sports.pdf",
+                    ApplicationYN = false,
+                    Description ="Les sessions seront dirigées et supervisées par les entraîneurs et \n enseignants de l’École secondaire publique Louis-Riel. La session \n de soccer sera dirigée par le directeur technique et les entraîneurs de \n la FCB Escola Ottawa.",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
+                    ImageUrl = "activity/2018/sample1.jpg",
+                    FileUrl = "activity/2018/Journee_de_sports.pdf",
+                    ApplicationYN = false,
+                    Description ="Les sessions seront dirigées et supervisées par les entraîneurs et \n enseignants de l’École secondaire publique Louis-Riel. La session \n de soccer sera dirigée par le directeur technique et les entraîneurs de \n la FCB Escola Ottawa.",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
+                    ImageUrl = "activity/2018/sample1.jpg",
+                    FileUrl = "activity/2018/Journee_de_sports.pdf",
+                    ApplicationYN = false,
+                    Description ="Les sessions seront dirigées et supervisées par les entraîneurs et \n enseignants de l’École secondaire publique Louis-Riel. La session \n de soccer sera dirigée par le directeur technique et les entraîneurs de \n la FCB Escola Ottawa.",
+                    SampleTextExpression = ""},
+                new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
+                    ImageUrl = "activity/2018/sample1.jpg",
+                    FileUrl = "activity/2018/Journee_de_sports.pdf",
+                    ApplicationYN = false,
+                    Description ="Les sessions seront dirigées et supervisées par les entraîneurs et \n enseignants de l’École secondaire publique Louis-Riel. La session \n de soccer sera dirigée par le directeur technique et les entraîneurs de \n la FCB Escola Ottawa.",
                     SampleTextExpression = ""},
                 new SchoolActivity { Address = "Dôme LR de l’É.S.P. Louis-Riel.", Amount = 25, ActivityDT = DateTime.Parse("2018-04-27"),Deadline = DateTime.Parse("2018-04-20"), ArriveOn = DateTime.Parse("2018-04-27 9:00:00"),  DepartAt = DateTime.Parse("2018-04-27 17:30:00"), Notify = true, TripName = "Sessions de sports",
                     ImageUrl = "activity/2018/sample1.jpg",

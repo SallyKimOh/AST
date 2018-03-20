@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
+using AspNetCore.Http.Extensions;
+using Newtonsoft.Json;
 
 namespace coreTest11.Controllers
 {
@@ -25,6 +28,7 @@ namespace coreTest11.Controllers
         private readonly UserManager<Users> _userManager;
         private readonly SignInManager<Users> _signInManager;
         private readonly ILogger _logger;
+        private static string url = new ConstantValue().OAuthUrl;
 
 
         public RegisterController(SchoolDbContext context, UserManager<Users> userManager, SignInManager<Users> signInManager, ILoggerFactory loggerFactory)
@@ -151,6 +155,12 @@ namespace coreTest11.Controllers
 
             Users user = new Users { Email = model.Email };
             module.GetUserInfo(user);     //select userID
+
+            user.UserName = model.Email;
+            user.PasswordHash = model.Password;
+
+            string oauthResult = CreateOAuthUser(user);  // need validation check. if result is success return success value else delete MPXUser data and return error.
+
 
 
             return module.GetUserInfo(user).Id;
@@ -344,7 +354,7 @@ namespace coreTest11.Controllers
         /***********************************************************************************
          * 
          * App Login
-         * http://localhost:61682/api/Register/Login3?Email=sally@gmail.com&Password=A1234567!a
+         * http://localhost:61682/api/Register/AppLogin?Email=sally@gmail.com&Password=A1234567!a
          * *********************************************************************************/
         // GET: /api/Register/AppLogin
         [Route("AppLogin")]
@@ -384,6 +394,92 @@ namespace coreTest11.Controllers
 
             return Json(child);
         }
+
+
+        /*******************************************************************************************************
+          * GET: /api/Register/CreatOAuthUser
+          * user/{email}/{password}
+          * Call OAuth Server
+          * OAuth Your account creates.
+          * Return result
+          * 
+          *******************************************************************************************************/
+
+        [Route("CreateOAuthUser")]
+        public string CreateOAuthUser(Users info)
+        {
+            var registerResult = Register(info.UserName, info.PasswordHash);
+
+            return registerResult;
+        }
+
+
+        static String Register(String email, String password)
+        {
+            var registerModel = new
+            {
+                Email = email,
+                Password = password,
+                ConfirmPassword = password
+            };
+            using (var client = new HttpClient())
+            {
+                var response = client.PostAsJsonAsync(
+                    url + "api/Account/Register",
+                    registerModel).Result;
+                return response.StatusCode.ToString();
+
+            }
+        }
+
+        /*******************************************************************************************************
+         * 
+          * GET: /api/Register/GetToken
+         * 
+         * 
+         * Return Token Information
+         * http://localhost:61682/api/Register/GetToken?email=a2@a.com&password=T123456%26t
+         *
+         *******************************************************************************************************/
+
+        [Route("GetToken")]
+        public async Task<JsonResult> GetToken(RegisterViewModel model)
+        {
+
+//            var user = await GetUserInfo(model.Email);
+
+//            if (user == null)
+//            {
+//                return Json(new { Succeeded = false, result = "The User is not exist." });
+//            }
+
+
+            Dictionary<string, string> token = GetTokenDictionary(model.Email, model.Password);
+
+            if (token.Keys.Count == 2)
+            {
+                var registerResult = Register(model.Email, model.Password);
+                token = GetTokenDictionary(model.Email, model.Password);
+            }
+
+
+            AdmTokenModels p = new AdmTokenModels();
+
+            foreach (var kvp in token)
+            {
+                Console.WriteLine("{0}: {1}", kvp.Key, kvp.Value);
+                p.access_token = token["access_token"];
+                p.expires_in = token["expires_in"];
+                p.userName = token["userName"];
+                p.issued = token[".issued"];
+                p.expires = token[".expires"];
+            }
+
+
+            return Json(new { Succeeded = true, result = p });
+            //            return Json(new { Succeeded = true, result = token["error"] });
+        }
+
 
 
 
@@ -509,6 +605,32 @@ namespace coreTest11.Controllers
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+        }
+
+
+        static Dictionary<string, string> GetTokenDictionary(String userName, String password)
+        {
+            var pairs = new List<KeyValuePair<String, String>>
+            {
+                new KeyValuePair<string, string>("grant_type","password"),
+                new KeyValuePair<string, string>("username",userName),
+                new KeyValuePair<string, string>("Password",password)
+
+            };
+
+            var content = new FormUrlEncodedContent(pairs);
+            using (var client = new HttpClient())
+            {
+                var response = client.PostAsync(url+"Token", content).Result;
+
+                var result = response.Content.ReadAsStringAsync().Result;
+
+                Dictionary<string, string> tokenDictionary =
+                    JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                return tokenDictionary;
+
+            }
+
         }
 
 

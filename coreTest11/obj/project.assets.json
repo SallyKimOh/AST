@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "AspNetCore.Http.Extensions/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/AspNetCore.Http.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AspNetCore.Http.Extensions.dll": {}
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -3987,6 +3999,16 @@
     }
   },
   "libraries": {
+    "AspNetCore.Http.Extensions/1.0.0": {
+      "sha512": "MovQ/IDALqvhY1OyxfyBur+b+KlMF58lcwE51l2xeqhLOcJ7/kj3aPZMok7aS+VOmgMS0J2JwbbHCmoRiHF6Vw==",
+      "type": "package",
+      "path": "aspnetcore.http.extensions/1.0.0",
+      "files": [
+        "aspnetcore.http.extensions.1.0.0.nupkg.sha512",
+        "aspnetcore.http.extensions.nuspec",
+        "lib/netstandard2.0/AspNetCore.Http.Extensions.dll"
+      ]
+    },
     "Libuv/1.10.0": {
       "sha512": "GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "type": "package",
@@ -10843,6 +10865,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "AspNetCore.Http.Extensions >= 1.0.0",
       "Microsoft.ApplicationInsights.AspNetCore >= 2.2.1",
       "Microsoft.AspNetCore >= 2.0.1",
       "Microsoft.AspNetCore.Authentication.Cookies >= 2.0.1",
@@ -10907,6 +10930,10 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "AspNetCore.Http.Extensions": {
+            "target": "Package",
+            "version": "1.0.0"
+          },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
             "version": "2.0.0"
