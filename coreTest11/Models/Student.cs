@@ -13,7 +13,7 @@ namespace coreTest11.Models
 
         [Key]
         public int StudentID { get; set; }
-        [ForeignKey("UserId")]
+//        [ForeignKey("UserId")]
         public String UserId { get; set; }
  //       [ForeignKey("ClassroomID")]
  //       public int ClassroomID { get; set; }
@@ -35,9 +35,13 @@ namespace coreTest11.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
+//        [ForeignKey("ParentID")]
         public int ParentID { get; set; }
+        [NotMapped]
         public Parent Parent { get; set; }
+
+        [NotMapped]
+        public StudentClassroom StudentClassroom { get; set; }
 
 
 

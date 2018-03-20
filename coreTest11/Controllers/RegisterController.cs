@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace coreTest11.Controllers
 {
@@ -207,6 +208,7 @@ namespace coreTest11.Controllers
         /************************************************************
          * ADD Student info
          * Firstname,lastname,parentid
+          * http://localhost:61682/api/Register/RegisterStudent?FirstName=son&LastName=Oh&parentID=1&key=AAA1234567890
          * **********************************************************/
 
         [Route("RegisterStudent")]
@@ -229,6 +231,50 @@ namespace coreTest11.Controllers
             StudentParentModule stuParMod = new StudentParentModule(_context);
             int studentParentID = stuParMod.CreateStudentParent(model);     //save StudentParent info
             return studentParentID;
+        }
+
+        /************************************************************
+         * Add StudentClassroom
+         * 
+         * **********************************************************/
+
+        [Route("RegisterStudentClass")]
+        public int RegisterStudentClass(StudentClassroom model)
+        {
+            StudentClassroomModule stuClassMod = new StudentClassroomModule(_context);
+            model.IsActive = true;
+            int studentClassroomID = stuClassMod.CreateStuClassroom(model);      //save studentclassroom
+           
+            return studentClassroomID;
+        }
+
+        /************************************************************
+          * Add Child
+          * http://localhost:61682/api/Register/RegisterStudent?FirstName=son&LastName=Oh&parentID=1
+          * http://localhost:61682/api/Register/RegisterStudentClass?classroom=1&studentID=3
+          * 
+          * Student stu = new Student();
+          * stu.FirstName = "ADFASF";
+          * stu.LastName = "ADSFA";
+          * stu.parentID=1;
+          * stu.StudentClassroom.classroomID = 1
+          * stu.StudentClassroom.StudentID = 2;
+          * http://localhost:61682/api/Register/AddChild?FirstName=son&LastName=Oh&parentID=1&key=AAA1234567890&StudentClassroom.classroomID=1
+          * **********************************************************/
+
+        [Route("AddChild")]
+        public int AddChild(Student model)
+        {
+            StudentModule studentMod = new StudentModule(_context);
+            int studentID = studentMod.CreateStudent(model);                //save student info
+
+            StudentClassroomModule stuClassMod = new StudentClassroomModule(_context);
+            model.StudentClassroom.StudentID = studentID;
+            model.StudentClassroom.IsActive = true;
+            
+            int classroomID = stuClassMod.CreateStuClassroom(model.StudentClassroom);      //save studentclassroom
+
+            return classroomID;
         }
 
 
@@ -295,8 +341,14 @@ namespace coreTest11.Controllers
             return Json("error");
         }
 
-        [Route("Login3")]
-        public async Task<JsonResult> Login3(LoginViewModel model)
+        /***********************************************************************************
+         * 
+         * App Login
+         * http://localhost:61682/api/Register/Login3?Email=sally@gmail.com&Password=A1234567!a
+         * *********************************************************************************/
+        // GET: /api/Register/AppLogin
+        [Route("AppLogin")]
+        public async Task<JsonResult> AppLogin(LoginViewModel model)
         {
             ParentModule module = new ParentModule(_context);
 
@@ -309,7 +361,10 @@ namespace coreTest11.Controllers
                 {
                     _logger.LogInformation(1, "User logged in.");
 
-                    List<Parent> item = module.GetParentInfo2(model.Email);
+                    UserModule module1 = new UserModule(_context, _userManager, _signInManager);
+                    Users user = new Users { Email = model.Email };
+                    string userid = module1.GetUserInfo(user).Id;     //select userID
+                    List<Parent> item = module.GetParentInfo2(userid);
                     return Json(item);
                 }
             }
@@ -317,6 +372,20 @@ namespace coreTest11.Controllers
             // If we got this far, something failed, redisplay form
             return Json("error");
         }
+
+
+        [Route("ChildList")]
+        public JsonResult ChildList(string userid)
+        {
+            var child = _context.Parent
+                .Include(m => m.Students)
+                .Where(m => m.UserId == userid )
+                .ToList();
+
+            return Json(child);
+        }
+
+
 
         /***********************************************************************************
          * 

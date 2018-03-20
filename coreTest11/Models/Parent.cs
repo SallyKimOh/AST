@@ -22,13 +22,14 @@ namespace coreTest11.Models
         public string CellPhone { get; set; }
         [StringLength(20)]
         public string PostalCode { get; set; }
-        [NotMapped]
+//        [NotMapped]
 //        [ForeignKey("UserId")]
         public string UserId { get; set; }
-        [NotMapped]
-        public Users Users { get; set; }
+//        [NotMapped]
+//        public Users User { get; set; }
 //        public List<StudentParent> StudentParents { get; set; }
- //       public StudentParent StudentParent { get; set; }
+        [NotMapped]
+        public Student Student { get; set; }
 
         public List<Student> Students { get; set; }
 
