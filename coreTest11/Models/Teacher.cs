@@ -15,10 +15,11 @@ namespace coreTest11.Models
         public String UserId { get; set; }
         [ForeignKey("ClassroomID")]
         public int ClassroomID { get; set; }
-//        [StringLength(50), Required]
-        //public string FirstName { get; set; }
-        //[StringLength(50), Required]
-        //public string LastName { get; set; }
+        [StringLength(50), Required]
+        public string FirstName { get; set; }
+        [StringLength(50), Required]
+        public string LastName { get; set; }
+        public string SchoolName { get; set; }
 
     }
 }

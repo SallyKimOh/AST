@@ -14,7 +14,7 @@ namespace coreTest11.Data
         public static void Initialize(SchoolDbContext context)
         {
             //If you want db to delete, it will be working for delete.
- //           context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
 
             //Ensure db for our current context exists, else create one
             // NOTE: Will have to change this once we implement migrations
@@ -92,16 +92,16 @@ namespace coreTest11.Data
 
             var teacher = new Teacher[]
             {
-                new Teacher { UserId=users[0].Id, ClassroomID = classroom [0].ClassroomID},
-                new Teacher { UserId=users[1].Id, ClassroomID = classroom [1].ClassroomID},
-                new Teacher { UserId=users[2].Id, ClassroomID = classroom [2].ClassroomID},
-                new Teacher { UserId=users[3].Id, ClassroomID = classroom [3].ClassroomID},
-                new Teacher { UserId=users[4].Id, ClassroomID = classroom [4].ClassroomID},
-                new Teacher { UserId=users[5].Id, ClassroomID = classroom [5].ClassroomID},
-                new Teacher { UserId=users[6].Id, ClassroomID = classroom [6].ClassroomID},
-                new Teacher { UserId=users[7].Id, ClassroomID = classroom [7].ClassroomID},
-                new Teacher { UserId=users[8].Id, ClassroomID = classroom [8].ClassroomID},
-                new Teacher { UserId=users[9].Id, ClassroomID = classroom [9].ClassroomID}
+                new Teacher { UserId=users[0].Id, ClassroomID = classroom [0].ClassroomID, FirstName="James", LastName="Rodney", SchoolName="l'école julie-payette "},
+                new Teacher { UserId=users[1].Id, ClassroomID = classroom [1].ClassroomID, FirstName="Ben", LastName="Barnaby", SchoolName="l'école julie-payette "},
+                new Teacher { UserId=users[2].Id, ClassroomID = classroom [2].ClassroomID, FirstName="Mister", LastName="Doctor", SchoolName="l'école julie-payette "},
+                new Teacher { UserId=users[3].Id, ClassroomID = classroom [3].ClassroomID, FirstName="Lara", LastName="Talbot", SchoolName="St Anne Elementary "},
+                new Teacher { UserId=users[4].Id, ClassroomID = classroom [4].ClassroomID, FirstName="Kelly", LastName="Yaraway", SchoolName="St Anne Elementary"},
+                new Teacher { UserId=users[5].Id, ClassroomID = classroom [5].ClassroomID, FirstName="Sam", LastName="SamLast", SchoolName="Broadview "},
+                new Teacher { UserId=users[6].Id, ClassroomID = classroom [6].ClassroomID, FirstName="Dean", LastName="DeanLast", SchoolName="Hopewell Avenue"},
+                new Teacher { UserId=users[7].Id, ClassroomID = classroom [7].ClassroomID, FirstName="Christina", LastName="Chris", SchoolName="Elmdale "},
+                new Teacher { UserId=users[8].Id, ClassroomID = classroom [8].ClassroomID, FirstName="John", LastName="John", SchoolName="l'école julie-payette "},
+                new Teacher { UserId=users[9].Id, ClassroomID = classroom [9].ClassroomID, FirstName="Johnny", LastName="Firechild", SchoolName="l'école julie-payette "}
             };
 
             foreach (Teacher m in teacher)
