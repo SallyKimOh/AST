@@ -46,7 +46,7 @@ namespace coreTest11.Controllers
          * http://localhost:61682/api/Register/Register?Email=sally2@gmail.com&Password=a1234567A!
          * 
          * ***************************************************************************/
-
+/*
         [Route("Register")]
         public JsonResult Register(RegisterViewModel model)
         {
@@ -61,7 +61,7 @@ namespace coreTest11.Controllers
 
             return Json(resultVal.Result);
         }
-
+*/
         /************************************************************
          * ADD user info
          * ADD Parent info
@@ -93,6 +93,10 @@ namespace coreTest11.Controllers
             {
                 if (module.GetUserInfo(model.Users) != null)
                 {
+                    Users user = new Users { UserName = model.Users.Email, PasswordHash = model.Users.PasswordHash };
+
+                    string oauthResult = CreateOAuthUser(user);  // need validation check. if result is success return success value else delete MPXUser data and return error.
+
                     if (model.Parent == null)
                     {
                         model.Parent = new Parent();
@@ -151,21 +155,82 @@ namespace coreTest11.Controllers
         {
 
             UserModule module = new UserModule(_context, _userManager, _signInManager);
-            var result = await module.CreateUser(model);
 
-            Users user = new Users { Email = model.Email };
-            module.GetUserInfo(user);     //select userID
+            if (module.GetUserInfo(new Users { Email = model.Email }) == null)
+            {
+                var result = await module.CreateUser(model);
 
-            user.UserName = model.Email;
-            user.PasswordHash = model.Password;
+                Users user = new Users { Email = model.Email };
+                module.GetUserInfo(user);     //select userID
 
-            string oauthResult = CreateOAuthUser(user);  // need validation check. if result is success return success value else delete MPXUser data and return error.
+                user.UserName = model.Email;
+                user.PasswordHash = model.Password;
 
+                string oauthResult = CreateOAuthUser(user);  // need validation check. if result is success return success value else delete MPXUser data and return error.
+                return module.GetUserInfo(user).Id;
 
+            }
 
-            return module.GetUserInfo(user).Id;
+            return null;
+
 
         }
+
+        /************************************************************
+         * ADD Parent info
+         * 
+         * **********************************************************/
+        //api/Register/RegisterParent?userid=fadsfad
+/*
+        [Route("RegisterParent")]
+        public int RegisterParent(Parent model)
+        {
+            ParentModule parentMod = new ParentModule(_context);
+
+            int parentID = parentMod.CreateParent(model);                   //save parent info
+            
+            return parentID;
+        }
+*/
+        /************************************************************
+         * ADD Parent info
+         *  //api/Register/RegisterParent?userid=fadsfad
+         * Users user = new Users{Id = id, FirstName = firstName, LastName=lastname}
+         * 
+         * **********************************************************/
+ 
+        [Route("RegisterParent")]
+        public int RegisterParent(string userid, string firstname, string lastname)
+        {
+            ParentModule parentMod = new ParentModule(_context);
+
+            Parent parentItem = new Parent { UserId = userid };
+
+            int parentID = parentMod.CreateParent(parentItem);                   //save parent info
+
+            Users user = new Users { Id = userid, FirstName = firstname, LastName = lastname };
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
+            module.GetUpdateUserInfo(user);
+
+            return parentID;
+        }
+
+
+        /****************************************************************************
+         * 
+         * User name update
+         * 
+         * 
+         * Users user = new Users{Id = id, FirstName = firstName, LastName=lastname}
+         * 
+         * *************************************************************************/
+ /*       [Route("GetUpdateUserInfo")]
+        public void GetUpdateUserName(Users user)
+        {
+            UserModule module = new UserModule(_context, _userManager, _signInManager);
+            module.GetUpdateUserInfo(user);
+        }
+*/
 
         /***************************************************
          * 
@@ -182,45 +247,11 @@ namespace coreTest11.Controllers
 
 
         /************************************************************
-         * ADD Parent info
-         * 
-         * **********************************************************/
-         //api/Register/RegisterParent?userid=fadsfad
-
-        [Route("RegisterParent")]
-        public int RegisterParent(Parent model)
-        {
-            ParentModule parentMod = new ParentModule(_context);
-
-            int parentID = parentMod.CreateParent(model);                   //save parent info
-
-            return parentID;
-        }
-
-
-        /****************************************************************************
-         * 
-         * User name update
-         * 
-         * 
-         * Users user = new Users{Id = id, FirstName = firstName, LastName=lastname}
-         * 
-         * *************************************************************************/
-        [Route("GetUpdateUserInfo")]
-        public void GetUpdateUserName(Users user)
-        {
-            UserModule module = new UserModule(_context, _userManager, _signInManager);
-            module.GetUpdateUserInfo(user);
-        }
-
-
-
-        /************************************************************
          * ADD Student info
          * Firstname,lastname,parentid
           * http://localhost:61682/api/Register/RegisterStudent?FirstName=son&LastName=Oh&parentID=1&key=AAA1234567890
          * **********************************************************/
-
+/*
         [Route("RegisterStudent")]
         public int RegisterStudent(Student model)
         {
@@ -228,13 +259,13 @@ namespace coreTest11.Controllers
             int studentID = studentMod.CreateStudent(model);                //save student info
             return studentID;
         }
-
+*/
 
         /************************************************************
          * Add StudentParent info
          * 
          * **********************************************************/
-
+/*
         [Route("RegisterStudentParent")]
         public int RegisterStudentParent(StudentParent model)
         {
@@ -242,12 +273,12 @@ namespace coreTest11.Controllers
             int studentParentID = stuParMod.CreateStudentParent(model);     //save StudentParent info
             return studentParentID;
         }
-
+*/
         /************************************************************
          * Add StudentClassroom
          * 
          * **********************************************************/
-
+         /*
         [Route("RegisterStudentClass")]
         public int RegisterStudentClass(StudentClassroom model)
         {
@@ -257,7 +288,7 @@ namespace coreTest11.Controllers
            
             return studentClassroomID;
         }
-
+        */
         /************************************************************
           * Add Child
           * http://localhost:61682/api/Register/RegisterStudent?FirstName=son&LastName=Oh&parentID=1
@@ -358,7 +389,7 @@ namespace coreTest11.Controllers
          * *********************************************************************************/
         // GET: /api/Register/AppLogin
         [Route("AppLogin")]
-        public async Task<JsonResult> AppLogin(LoginViewModel model)
+        public async Task<IActionResult> AppLogin(LoginViewModel model)
         {
             ParentModule module = new ParentModule(_context);
 
@@ -374,16 +405,24 @@ namespace coreTest11.Controllers
                     UserModule module1 = new UserModule(_context, _userManager, _signInManager);
                     Users user = new Users { Email = model.Email };
                     string userid = module1.GetUserInfo(user).Id;     //select userID
+                    if( userid.Length == 0)
+                    {
+                        return NotFound();
+                    }
                     List<Parent> item = module.GetParentInfo2(userid);
-                    return Json(item);
+
+                    var resultToken = GetToken(model);
+                    
+                    return CreatedAtAction("Get", new {Successed=true,statusCode=200,tokenResult=resultToken,item});
+                    //return Json(item);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return Json("error");
+            return BadRequest();
         }
 
-
+/*
         [Route("ChildList")]
         public JsonResult ChildList(string userid)
         {
@@ -394,7 +433,7 @@ namespace coreTest11.Controllers
 
             return Json(child);
         }
-
+*/
 
         /*******************************************************************************************************
           * GET: /api/Register/CreatOAuthUser
@@ -438,12 +477,12 @@ namespace coreTest11.Controllers
          * 
          * 
          * Return Token Information
-         * http://localhost:61682/api/Register/GetToken?email=a2@a.com&password=T123456%26t
+         * http://localhost:61682/api/Register/GetTokenAPI?email=a2@a.com&password=T123456%26t
          *
          *******************************************************************************************************/
 
-        [Route("GetToken")]
-        public async Task<JsonResult> GetToken(RegisterViewModel model)
+        [Route("GetTokenAPI")]
+        public async Task<JsonResult> GetTokenAPI(RegisterViewModel model)
         {
 
 //            var user = await GetUserInfo(model.Email);
@@ -480,6 +519,42 @@ namespace coreTest11.Controllers
             //            return Json(new { Succeeded = true, result = token["error"] });
         }
 
+        public JsonResult GetToken(LoginViewModel model)
+        {
+
+            //            var user = await GetUserInfo(model.Email);
+
+            //            if (user == null)
+            //            {
+            //                return Json(new { Succeeded = false, result = "The User is not exist." });
+            //            }
+
+
+            Dictionary<string, string> token = GetTokenDictionary(model.Email, model.Password);
+
+            if (token.Keys.Count == 2)
+            {
+                var registerResult = Register(model.Email, model.Password);
+                token = GetTokenDictionary(model.Email, model.Password);
+            }
+
+
+            AdmTokenModels p = new AdmTokenModels();
+
+            foreach (var kvp in token)
+            {
+                Console.WriteLine("{0}: {1}", kvp.Key, kvp.Value);
+                p.access_token = token["access_token"];
+                p.expires_in = token["expires_in"];
+                p.userName = token["userName"];
+                p.issued = token[".issued"];
+                p.expires = token[".expires"];
+            }
+
+
+            return Json(new { Succeeded = true, result = p });
+            //            return Json(new { Succeeded = true, result = token["error"] });
+        }
 
 
 
