@@ -408,6 +408,7 @@ namespace coreTest11.Controllers
                     if( userid.Length == 0)
                     {
                         return NotFound();
+
                     }
                     List<Parent> item = module.GetParentInfo2(userid);
 

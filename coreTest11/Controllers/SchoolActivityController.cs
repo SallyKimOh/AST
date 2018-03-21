@@ -131,7 +131,7 @@ namespace coreTest11.Controllers
         {
             SchoolActivityModule module = new SchoolActivityModule(_context);
             long id = module.CreateApplication(item);
-//            item.ActivityConfirm.ApplicationID = id;
+            item.ActivityConfirm.ApplicationID = id;
  //           int activityConfirmID = module.CreateActivityConfirm(item.ActivityConfirm);
             return Json(id);
         }

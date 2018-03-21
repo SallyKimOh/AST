@@ -21,7 +21,7 @@ namespace coreTest11.Models
         public string ETC { get; set; }
         [ForeignKey("ActivityID")]
         public long ActivityID { get; set; }
-        [Display]
+        [NotMapped]
         public bool ApplicationYN { get; set; }
 
 
